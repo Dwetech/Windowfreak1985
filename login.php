@@ -1,5 +1,6 @@
 <?php
 require('core.php');
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -30,22 +31,26 @@ require('core.php');
                     </a>
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
-                	<ul class="headlogin text-center headlogin1">
-                    	<li><input type="text" value="" placeholder="email" class="emailtext" />
-						<p class="keep"><input type="checkbox" name="" class="cbox"/>Keep me logged in</p>
-						</li>
-                        <li><input type="password" value="" placeholder="password" class="passtext" />
-						<p class="keep">forgot your password?</p>
-						</li>
-                        <li><input type="button" value="Login" name="Login" class="loginbtn" /></li>
-                    </ul>
-                    <div class="c"></div>
-                    <ul class="keep-forgot">
-                    	<li></li>
-                        
-                    </ul>
-                    
-                    
+
+                    <form action="action_login.php" method="post">
+
+                        <ul class="headlogin text-center headlogin1">
+                            <li><input type="text" name="email" value="" placeholder="email" class="emailtext" />
+                            <p class="keep"><input type="checkbox" name="remember_me" value="1" class="cbox"/>Keep me logged in</p>
+                            </li>
+                            <li><input type="password" name="password" value="" placeholder="password" class="passtext" />
+                            <p class="keep">forgot your password?</p>
+                            </li>
+                            <li><input type="submit" value="Login" name="Login" class="loginbtn" /></li>
+                        </ul>
+                        <div class="c"></div>
+                        <ul class="keep-forgot">
+                            <li></li>
+
+                        </ul>
+
+                    </form>
+
                 </div>
             </div>
         </div>

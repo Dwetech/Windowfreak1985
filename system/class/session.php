@@ -41,55 +41,123 @@ class Session
 
 
     }
-            
-            
-            
-            
-                       
-            
-            
-        
-    /**
-    * Check is admin/to/user logged in/
-    *
-    * @param mixed 'admin' or 'to' or 'user'
-    */
-    function checklogin($level)
+
+
+    function login( $email, $password, $remember_me = false )
     {
-        /* S encryption codes */
-        global $database;
-        global $User;
-        switch( $level )
+
+        $email = cleanData($email);
+
+        if ( $userData = $this->checkUser( $email, $password ) )
+        {
+            $this->loginUser($userData, $remember_me);
+            return true;
+        }
+
+        return false;
+
+    }
+
+
+
+
+
+    function checkUser ($email, $password)
+    {
+
+        $query = mysql_query('SELECT * FROM '.TBL_USER.' WHERE email = "'.$email.'"');
+
+        if( mysql_num_rows($query) < 1 )
+        {
+            return false;
+        }
+
+        $data = mysql_fetch_assoc($query);
+
+        //$password = hash('sha256',$password);
+
+        if( $data['password'] == $password )
+        {
+            return $data;
+        }
+
+        return false;
+
+    }
+
+
+
+
+
+    /**
+     * Login user by setting session and cookie (if $remember_me = true)
+     *
+     * @param $user
+     * @param bool $remember_me
+     */
+    private function loginUser ($user, $remember_me = false)
+    {
+
+        if( $remember_me ) {
+
+            $cookie_rand = $this->updateUserCookie($user['id']);
+
+            setcookie ("cookid", $user['id'], time()+COOKIE_EXPIRE);
+            setcookie ("cookrand", $cookie_rand, time()+COOKIE_EXPIRE);
+
+        }
+
+        $_SESSION['user_id']    = $user['id'];
+        $_SESSION['user_email'] = $user['email'];
+        $_SESSION['loginType']  = $user['type'];
+
+    }
+
+
+            
+
+    /**
+     * Check is admin/user logged in/
+     * @param $level
+     * @return bool
+     */
+    function checklogin($level=false)
+    {
+
+        if ( $this->checkSession($level) )
+        {
+            return true;
+        }
+        elseif ( isset($_COOKIE["cookrand"]) && isset($_COOKIE["cookid"]) )
+        {
+
+            $userData = $this->getUserWithCookie($_COOKIE["cookid"], $_COOKIE["cookrand"]);
+
+            if( $userData ) {
+                $this->loginUser($userData, true);
+
+                return $this->checkSession($level);
+
+            }
+
+        }
+
+        return false;
+
+    }
+
+
+
+    private function checkSession($level=false) {
+
+        if ( isset($_SESSION['user_id']) && isset($_SESSION['user_email']) && isset($_SESSION['loginType']) )
+        {
+
+            switch( $level )
             {
                 case 'admin':
 
-                if ( isset($_SESSION['admin_email']) && isset($_SESSION['admin_lastlogin']) && isset($_SESSION['s_encryption_admin']) )
-                    {
-                        $s_encryption = md5("Sscript made by SHAKTI -UserLevel: admin admin_email : ".$_SESSION['admin_email'].' Last login : '.$_SESSION['admin_lastlogin']);
-
-                        if (  ($_SESSION['s_encryption_admin'] == $s_encryption) && $this->isTimeOut() )
-                            {
-                                return true;
-                            }
-                        else
-                            {
-                                return false;
-                            }
-                    }
-                else
-                    {
-                        return false;
-                    }
-
-                break;
-
-                case 'user':
-
-                if( isset($_SESSION['user_email']) && isset($_SESSION['user_lastlogin']) && isset($_SESSION['s_encryption']) )
-                {
-                    $s_encryption = $s_encryption = md5("Sscript made by SHAKTI -UserLevel: user user_email : ".$_SESSION['user_email'].' Last login : '.$_SESSION['user_lastlogin']);
-
-                    if( ($_SESSION['s_encryption'] == $s_encryption ) && $this->isTimeOut() )
+                    if (  ($_SESSION['loginType'] == 'admin') && $this->isTimeOut() )
                     {
                         return true;
                     }
@@ -98,24 +166,40 @@ class Session
                         return false;
                     }
 
-                }
-                else 
-                {
-                    return false;
-                }
+                    break;
 
-                break;
+                case 'user':
+
+                    if( ($_SESSION['loginType'] == 'user') && $this->isTimeOut() )
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                    break;
+
+                default:
+                    return true;
+                    break;
             }
+
+        }
+
+        return false;
 
     }
 
-            
-        /**
-        * check is login timeout. If timeout, User will logged out.
-        *     
-        * @param int $timeout
-        */
-    function isTimeOut( $timeout = '2000' )
+
+    /**
+     * check is login timeout. If timeout, User will logged out.
+     *
+     * @param int $timeout
+     * @return bool
+     */
+    function isTimeOut( $timeout = 2000 )
     {
 
         if(isset($this->time) )
@@ -141,6 +225,9 @@ class Session
     }
 
 
+
+
+
     /**
      * Make login required. If not logged in redirect to login page.
      *
@@ -158,6 +245,7 @@ class Session
                     {
                         $_SESSION['login_referrer'] = $ajax ? $ajax : $this->url;
                     }
+
                 if ( $ajax )
                     {
                         echo 'Your session has ended. Please <a href="'.WEBSITE_URL.'login/">Login</a> again.
@@ -166,13 +254,9 @@ class Session
                             </script>';
                         exit();
                     }
-                else if ( $type == 'admin' )
-                    {
-                        redirect( ADMIN_URL . 'login.php' );
-                    }
                 else
                     {
-                        redirect( WEBSITE_URL . 'login/' );
+                        redirect( WEBSITE_URL . 'login.php' );
                     }
 
             }
@@ -181,52 +265,18 @@ class Session
 
 
         
-    function login( $email, $password )
-    {
-
-        $email = cleanData($email);
-
-        if ( !$this->checkUser( $email, $password ) )
-            {
-                return false;
-            }
-        else
-            {
-                $this->loginAdmin();
-                return true;
-            }
-
-    }
 
 
 
-    function checkAdmin ( $email, $password )
-    {
-
-        $query = mysql_query('SELECT * FROM '.TBL_USER.' WHERE email = "'.$email.'" AND type="admin"');
-        // If no admin found with given email address
-        if( mysql_num_rows($query) < 1 )
-        {
-            return false;
-        }
-
-        $data = mysql_fetch_assoc($query);
-
-        if ( $email == $data['email'] && sha256($password) == $data['password'] )
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-
-    }
 
 
-    function checkUser ($email, $password)
-    {
-        $query = mysql_query('SELECT * FROM '.TBL_USER.' WHERE email = "'.$email.'" and type="user"');
+
+
+
+
+    private function getUserWithCookie($cookie_id, $cookie_rand) {
+
+        $query = mysql_query('SELECT * FROM '.TBL_USER.' WHERE id = "'.$cookie_id.'" AND cookie_rand="'.$cookie_rand.'"');
 
         if( mysql_num_rows($query) < 1 )
         {
@@ -234,68 +284,58 @@ class Session
         }
 
         $data = mysql_fetch_assoc($query);
+        return $data;
 
-        $password = hash('sha256',$password);
+    }
 
-        if( $data['password'] == $password )
-        {
-            $this->loginUser($email);
-            return true;
-        }
+    /**
+     * Update user cookie in database
+     *
+     * @param $user_id
+     * @return string random cookie
+     */
+    private function updateUserCookie($user_id) {
 
-        return false;
-
+        $rand = $this->generateRandID();
+        mysql_query('UPDATE '.TBL_USER.' SET cookie_rand = "'.$rand.'" WHERE id="'.$user_id.'"');
+        return $rand;
 
     }
 
 
-    private function loginUser ($email)
-    {
-        $_SESSION['user_email'] =  $email;
-        $_SESSION['loginType']  = 'user';
-    }
 
 
 
-    private function loginAdmin ()
-    {
-        $email = $_SESSION['admin_email'] = getSetting( 'admin_email' );
-        $lastlogin = $_SESSION['admin_lastlogin'] = getSetting( 'admin_lastlogin' );
-        $this->loginType = $_SESSION['loginType'] = 'admin';
-    }
 
-            
-        
+
         
     function logoutAll()
     {
 
-        unset( $_SESSION['admin_email'] );
-        unset( $_SESSION['admin_lastlogin'] );
-        unset( $_SESSION['s_encryption_admin'] );
+        unset( $_SESSION['user_id'] );
+        unset( $_SESSION['user_email'] );
         unset( $_SESSION['loginType'] );
+
         setcookie ("cookid", "", time()-COOKIE_EXPIRE, COOKIE_PATH);
         setcookie ("cookrand", "", time()-COOKIE_EXPIRE, COOKIE_PATH);
 
     }
                      
         
-    function logout( $type )
+    function logout()
     {
 
-        switch( $type )
-            {
-
-                case 'admin' :
-                    unset( $_SESSION['admin_email'] );
-                    unset( $_SESSION['admin_lastlogin'] );
-                    unset( $_SESSION['s_encryption_admin'] );
-                break;
-
-            }
+        
+        unset( $_SESSION['user_id'] );
+        unset( $_SESSION['user_email'] );
+        unset( $_SESSION['loginType'] );
+        setcookie ("cookid", "", time()-COOKIE_EXPIRE, COOKIE_PATH);
+        setcookie ("cookrand", "", time()-COOKIE_EXPIRE, COOKIE_PATH);
+              
 
     }
             
+
     /**
     * generateRandID - Generates a string made up of randomized
     * letters (lower and upper case) and digits and returns
@@ -330,5 +370,3 @@ class Session
    };
     
     $session = new Session();
-
-?>
