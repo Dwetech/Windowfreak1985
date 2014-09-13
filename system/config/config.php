@@ -22,6 +22,8 @@ define ( 'TBL_LEADS', 'leads' );
 // Website URL
 define ( 'WEBSITE_URL', 'http://localhost/Windowfreak1985/' );
 
+// cookie
+define ( 'COOKIE_EXPIRE', 60*60*24*15 ); // seconds * Minutes * Hours * days
 
 
 //define ( 'ADMIN_URL', WEBSITE_URL );

@@ -143,7 +143,7 @@
                             $from = $this->page-2;
                             $to = $this->page+2;
                         }
-             $html .= '<div class="pagination"><ul>';
+             $html .= '<div class="pagination"><ul class="pagebtn">';
                         if ($this->page>1)
                         {
                             $html .= '<li><a href="?'.$this->pagereferer.'page=1" title="Go to first page"';
@@ -151,19 +151,19 @@
                             {
                                 $html .= ' onclick="ajaxPagination(\''.$this->ajax_url.'?'.$this->pagereferer.'page=1\',\''.$this->div_pagination_id.'\'); return false;"';
                             }
-                            $html .= '>&laquo;&laquo;</a></li>
+                            $html .= '>First</a></li>
                             <li><a href="?'.$this->pagereferer.'page='.($this->page-1).'" title="Go to previous page"';
                             if($this->ajax_type)
                             {
                                 $html .= ' onclick="ajaxPagination(\''.$this->ajax_url.'?'.$this->pagereferer.'page='.($this->page-1).'\',\''.$this->div_pagination_id.'\'); return false;"';
                             }
-                            $html .= '>&laquo;</a></li>';
+                            $html .= '>Prev</a></li>';
                         }
-                        else
+                        /*else
                         {
                             $html .= '<li class="disabled"><a>&laquo;&laquo;</a></li>
                             <li class="disabled"><a>&laquo;</a></li>';
-                        }
+                        }*/
                         for ($i=$from; $i<=$to; $i++)
                         {
                             if ($this->page == $i)
@@ -187,14 +187,14 @@
                             {
                                 $html .= ' onclick="ajaxPagination(\''.$this->ajax_url.'?'.$this->pagereferer.'page='.($this->page+1).'\',\''.$this->div_pagination_id.'\'); return false;"';
                             }
-                            $html .= '>&raquo;</a></li>
-                            <li><a href="?'.$this->pagereferer.'page='.$this->pagetotal.'" title="Go to last page">&raquo;&raquo;</a></li>';
+                            $html .= '>Next</a></li>
+                            <li><a href="?'.$this->pagereferer.'page='.$this->pagetotal.'" title="Go to last page">Last</a></li>';
                         }
-                        else
+                        /*else
                         {
                             $html .= '<li class="disabled"><a>&raquo;</a></li>
                             <li class="disabled"><a>&raquo;&raquo;</a></li>';
-                        }
+                        }*/
                         $html .= '</ul>
                             </div>
                         </td>
