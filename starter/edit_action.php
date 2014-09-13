@@ -1,0 +1,68 @@
+<?php
+
+/*
+  Created on : Sep 13, 2014, 7:14:12 PM
+  Author        : me@rafi.pro
+  Name         : Mohammad Faozul Azim Rafi
+ */
+
+include '../core.php';
+
+$form = new Form();
+
+
+if (isset($_POST['delete_starter']) && $_POST['delete_starter'] == 'DELETE') {
+
+    $starter_id = $_POST['starter_id'];
+    
+    if (sizeof($starter_id) <= 0) {
+
+        $form->setError('starter_error', 'Please select a conversation to delete!');
+        $form->return_msg_to(WEBSITE_URL . 'starter/starters.php');
+    }
+
+    foreach ($starter_id as $id) {
+        mysql_query("DELETE FROM starter WHERE `id`=$id");
+    }
+
+
+    $form->setError('starter_success', 'Conversation(s) deleted successfully!');
+    $form->return_msg_to(WEBSITE_URL . 'starter/starters.php');
+    
+    
+} else if (isset($_POST['edit_starter']) && $_POST['edit_starter'] == 'EDIT') {
+    
+    $starter_id = $_POST['starter_id'];
+    
+    if (sizeof($starter_id) <= 0) {
+
+        $form->setError('starter_error', 'Please select a conversation to edit!');
+        $form->return_msg_to(WEBSITE_URL . 'starter/starters.php');
+    }
+    
+    $id = is_array($starter_id) ? $starter_id[0] : $starter_id;
+
+    
+    if (is_array($starter_id)) {
+        
+        $form->return_msg_to(WEBSITE_URL . 'starter/edit-starter.php?id=' . $id);
+    } else {
+        
+        $starter = cleanData($_POST['starter']);
+        $result = mysql_query('UPDATE starter SET `starter`="' . $starter . '" WHERE id=' . $id);
+        if (!$result) {
+            
+            $form->setError('starter_error', 'Conversation edit failed! Please try again.');
+            $form->return_msg_to(WEBSITE_URL . 'starter/edit-starter.php?id=' . $id);
+        } else {
+            
+            $form->setError('starter_success', 'Conversation updated successfully!');
+            $form->return_msg_to(WEBSITE_URL . 'starter/starters.php');
+        }
+    }
+    
+    
+} else {
+    
+    $form->return_msg_to(WEBSITE_URL . 'starter/starters.php');
+}
