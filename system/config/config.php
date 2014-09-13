@@ -10,10 +10,13 @@ All right reserved. Copyright Abdullah Al Jahid
 define ( 'DB_HOST', 'localhost' );
 define ( 'DB_USER', 'root' );
 define ( 'DB_PASSWORD', '' );
-define ( 'DB_NAME', 'dwetech-traffic' );
+define ( 'DB_NAME', 'life_department_db' );
 
-define ( 'TBL_DIETITIAN', 'dietitian' );
-define ( 'TBL_SETTINGS', 'settings' );
+
+define ( 'TBL_USER', 'user' );
+define ( 'TBL_AGENCY', 'agency' );
+define ( 'TBL_STARTER', 'starter' );
+define ( 'TBL_LEADS', 'leads' );
 
 
 // Website URL

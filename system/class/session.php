@@ -38,21 +38,6 @@ class Session
         $this->url = $_SESSION['url'] = $_SERVER['REQUEST_URI'];
 
         $_SESSION['timeout'] = time();
-        $u = base64_encode($_SERVER['HTTP_HOST']);
-
-
-        if ( $u != 'd3d3Lm96ZXZlbnRzLmluZm8=' and $u !='b3pldmVudHMuaW5mbw==' AND $u != 'bG9jYWxob3N0'  )
-        {
-
-            die(base64_decode('PGRpdiBhbGlnbj0iY2VudGVyIj4gDQo8aDE+RHdldGVjaCBNQ1JTPC9oMT4gDQo8c3BhbiBzdHls
-ZT0iZm9udC1zaXplOiAyMHB4OyI+VGhpcyB3ZWJzaXRlIHVzaW5nIDxhIGhyZWY9Imh0dHA6Ly9k
-d2V0ZWNoLmNvbS9tY3JzLyI+PGI+RHdldGVjaCBNQ1JTPC9iPjwvYT4gaWxsZWdhbGx5LiBQbGVh
-c2UgYnV5IGEgY29weSBmcm9tIDxhIGhyZWY9Imh0dHA6Ly9kd2V0ZWNoLmNvbS8iPkR3ZXRlY2gu
-Y29tPC9hPiB0byBtYWtlIGl0IGFjdGl2ZS48L3NwYW4+IA0KPGJyIC8+IA0KPGJyIC8+IA0KPHNw
-YW4gc3R5bGU9ImZvbnQtc2l6ZTogMTJweDsiPkNvcHlyaWdodCCpIDIwMTAgPGJyIC8+IEFsbCBy
-aWdodHMgcmVzZXJ2ZWQgYnkgPGEgaHJlZj0iaHR0cDovL2R3ZXRlY2guY29tIiBhbHQ9IkRXRXRl
-Y2giPkR3ZXRlY2g8L2E+PC9zcGFuPiANCjwvZGl2Pg=='));
-        }
 
 
     }
@@ -218,13 +203,22 @@ Y2giPkR3ZXRlY2g8L2E+PC9zcGFuPiANCjwvZGl2Pg=='));
     function checkAdmin ( $email, $password )
     {
 
-        if ( $email == getSetting('admin_email') && md5($password) == getSetting('admin_password') )
+        $query = mysql_query('SELECT * FROM '.TBL_USER.' WHERE email = "'.$email.'" AND type="admin"');
+        // If no admin found with given email address
+        if( mysql_num_rows($query) < 1 )
         {
-            return 1;
+            return false;
+        }
+
+        $data = mysql_fetch_assoc($query);
+
+        if ( $email == $data['email'] && sha256($password) == $data['password'] )
+        {
+            return true;
         }
         else
         {
-            return 0;
+            return false;
         }
 
     }
@@ -232,7 +226,7 @@ Y2giPkR3ZXRlY2g8L2E+PC9zcGFuPiANCjwvZGl2Pg=='));
 
     function checkUser ($email, $password)
     {
-        $query = mysql_query('SELECT * FROM users WHERE email = "'.$email.'"');
+        $query = mysql_query('SELECT * FROM '.TBL_USER.' WHERE email = "'.$email.'" and type="user"');
 
         if( mysql_num_rows($query) < 1 )
         {
@@ -245,7 +239,7 @@ Y2giPkR3ZXRlY2g8L2E+PC9zcGFuPiANCjwvZGl2Pg=='));
 
         if( $data['password'] == $password )
         {
-            $this->loginUser($email,$data['registration_date']);
+            $this->loginUser($email);
             return true;
         }
 
@@ -255,16 +249,10 @@ Y2giPkR3ZXRlY2g8L2E+PC9zcGFuPiANCjwvZGl2Pg=='));
     }
 
 
-    private function loginUser ($email, $lastlogin)
+    private function loginUser ($email)
     {
         $_SESSION['user_email'] =  $email;
-        $_SESSION['user_lastlogin'] = $lastlogin;
-        $_SESSION['loginType'] = 'user';
-
-        updateQuery('users', array('registration_date'=>'NOW()'),'email='.$email);
-
-        $_SESSION['s_encryption'] = md5("Sscript made by SHAKTI -UserLevel: user user_email : ".$email.' Last login : '.$lastlogin);
-
+        $_SESSION['loginType']  = 'user';
     }
 
 
@@ -274,9 +262,6 @@ Y2giPkR3ZXRlY2g8L2E+PC9zcGFuPiANCjwvZGl2Pg=='));
         $email = $_SESSION['admin_email'] = getSetting( 'admin_email' );
         $lastlogin = $_SESSION['admin_lastlogin'] = getSetting( 'admin_lastlogin' );
         $this->loginType = $_SESSION['loginType'] = 'admin';
-        updateQuery( TBL_SETTINGS, array("value" => date("F j, Y")), "name='admin_lastlogin'" );
-
-        $_SESSION['s_encryption_admin'] = md5("Sscript made by SHAKTI -UserLevel: admin admin_email : ".$email.' Last login : '.$lastlogin);
     }
 
             
