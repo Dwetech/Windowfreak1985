@@ -31,9 +31,9 @@ if (isset($_POST['add_agency']) && $_POST['add_agency'] == 'ADD') {
         $form->return_msg_to(WEBSITE_URL . 'admin/user/add-an-agency.php');
     }
     
-    if ($email == '') {
+    if ($email == '' || !is_valid_email($email)) {
         
-        $form->setError('agency_error', 'Agency Email is required!');
+        $form->setError('agency_error', 'Agency Email is required and must be valid!');
         $form->return_msg_to(WEBSITE_URL . 'admin/user/add-an-agency.php');
     }
     
