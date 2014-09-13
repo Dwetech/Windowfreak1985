@@ -1,5 +1,5 @@
 <?php
-include '../core.php';
+include '../../core.php';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -32,13 +32,16 @@ include '../core.php';
                     <h2 class="" style="font-size:26px; line-height:30px;">Add User</h2>
                     <div class="clearfix"></div>
                     <div id="reg">
-                        <input class="form-control inputone" type="text" placeholder="FIRSTNAME">
-                            <input class="form-control" type="text" placeholder="LASTNAME">
-                                <input class="form-control" type="text" placeholder="Email">
-                                    <input class="form-control" type="text" placeholder="PASSWORD">
-                                        <input class="form-control" type="text" placeholder="PHONE NUMBER">
-                                            <input class="form-control" type="text" placeholder="AGENCY">
-                                                <input type="submit" value="ADD" class="form-control btn">
+
+                        <form action="action_add_user.php" method="post">
+                            <input class="form-control inputone" type="text" placeholder="FIRSTNAME">
+                                <input class="form-control" type="text" placeholder="LASTNAME">
+                                    <input class="form-control" type="text" placeholder="Email">
+                                        <input class="form-control" type="text" placeholder="PASSWORD">
+                                            <input class="form-control" type="text" placeholder="PHONE NUMBER">
+                                                <input class="form-control" type="text" placeholder="AGENCY">
+                                                    <input type="submit" value="ADD" class="form-control btn">
+                        </form>
                                                     <div class="clearfix"></div>
                                                     </div>
                                                     </div>

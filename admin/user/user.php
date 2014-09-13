@@ -1,5 +1,5 @@
 <?php
-include '../core.php';
+include '../../core.php';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -24,7 +24,7 @@ include '../core.php';
         <div class="container">
             <div class="row topmargin">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <p class="addmin">add a user</p>
+                    <a class="addmin" href="add-a-user.php">add a user</a>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <ul class="editdelete">
