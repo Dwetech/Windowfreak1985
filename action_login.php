@@ -18,7 +18,7 @@ $login = $session->login($email,$password,$remember_me);
 
 if($login) {
     if( $_SESSION['loginType'] == 'admin' ){
-        redirect('Dashboard.php');
+        redirect('dashboard.php');
     } else {
         redirect('view.php');
     }
