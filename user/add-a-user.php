@@ -1,5 +1,5 @@
 <?php
-include '/core.php';
+include '../core.php';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -29,7 +29,7 @@ include '/core.php';
 
             <div style="margin-top:20px;">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <h2 class="" style="font-size:26px; line-height:30px;">Add Administrator</h2>
+                    <h2 class="" style="font-size:26px; line-height:30px;">Add User</h2>
                     <div class="clearfix"></div>
                     <div id="reg">
                         <input class="form-control inputone" type="text" placeholder="FIRSTNAME">
@@ -37,7 +37,7 @@ include '/core.php';
                                 <input class="form-control" type="text" placeholder="Email">
                                     <input class="form-control" type="text" placeholder="PASSWORD">
                                         <input class="form-control" type="text" placeholder="PHONE NUMBER">
-                                            <input class="form-control" type="text" placeholder="RECEIVE EMAIL">
+                                            <input class="form-control" type="text" placeholder="AGENCY">
                                                 <input type="submit" value="ADD" class="form-control btn">
                                                     <div class="clearfix"></div>
                                                     </div>
