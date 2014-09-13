@@ -15,7 +15,7 @@ $Form = new Form();
     </head>
 
     <body>
-        
+
         <?php
         include ROOT_DIR . 'include/header.php';
 
@@ -58,13 +58,14 @@ $Form = new Form();
                         </tr>
 
                         <?php
-
-                        $user_count = mysql_fetch_array(mysql_query("SELECT COUNT(*) as total FROM ".TBL_USER." WHERE type='user'"));
-                        $user_sql = "SELECT u.*, a.agency_name FROM ".TBL_USER." u LEFT JOIN agency a ON (u.agency_id=a.id) WHERE u.type='user'";
+                        $user_count = mysql_fetch_array(mysql_query("SELECT COUNT(*) as total FROM " . TBL_USER . " WHERE type='user'"));
+                        $user_sql = "SELECT u.*, a.agency_name FROM " . TBL_USER . " u LEFT JOIN agency a ON (u.agency_id=a.id) WHERE u.type='user'";
 
                         $userPagination = new Pagination();
+                        
                         $userPagination->limit = 30;
                         $userPagination->page  = isset($_GET['user_page']) ? $_GET['user_page'] : 0;
+
                         $userPagination->execute($user_count['total']);
 
                         $user_sql .= $userPagination->getLimitStr();
@@ -72,7 +73,7 @@ $Form = new Form();
                         $user_query = mysql_query($user_sql);
 
 
-                        while( $user_data = mysql_fetch_assoc($user_query) ) {
+                        while ($user_data = mysql_fetch_assoc($user_query)) {
                             ?>
                             <tr>
                                 <td><?php echo $user_data['first_name'] ?></td>
@@ -88,9 +89,7 @@ $Form = new Form();
                                 </td>
                             </tr>
                             <?php
-
                         }
-
                         ?>
                     </table>
                 </div>
@@ -125,93 +124,53 @@ $Form = new Form();
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <tr>
-                            <th>Agency name                                                                           </th>
+                            <th>Agency name</th>
                             <th>primary contact</th>
                             <th>agency email</th>
                             <th>agency phone </th>
                             <th colspan="2">leads (yes/no)</th>
                         </tr>
-                        <tr>
-                            <td>Engle Insurance</td>
-                            <td>Scott Engle</td>
-                            <td>scott@agencyname.net</td>
-                            <td>555-123-4567</td>
-                            <td class="text-center">12 / 97</td>
-                            <td class="text-center"><input type="checkbox" name="" value="" /></td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
+                        <?php
+                        $agency_count = mysql_fetch_array(mysql_query("SELECT COUNT(*) as total FROM " . TBL_AGENCY));
+                        $agency_sql = "SELECT * FROM " . TBL_AGENCY;
+
+                        $agencyPagination = new Pagination();
+                        $agencyPagination->limit = 1;
+                        $agencyPagination->page = isset($_GET['agency_page']) ? $_GET['agency_page'] : 0;
+                        $agencyPagination->execute($agency_count['total']);
+
+                        $agency_sql .= $agencyPagination->getLimitStr();
+
+                        $agency_query = mysql_query($agency_sql);
+
+                        if (mysql_num_rows($agency_query) > 0) {
+
+                            while ($data = mysql_fetch_assoc($agency_query)) {
+                                ?>
+                                <tr>
+                                    <td><?php echo $data['agency_name']; ?></td>
+                                    <td><?php echo $data['primary_contact']; ?></td>
+                                    <td><?php echo $data['email']; ?></td>
+                                    <td><?php echo $data['phone_no']; ?></td>
+                                    <td class="text-center"><?php echo $data['create_date']; ?></td>
+                                    <td class="text-center"><input type="checkbox" name="id" value="<?php echo $data['id']; ?>" /></td>
+                                </tr>
+                                <?php
+                            }
+                        }
+                        ?>
                     </table>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <ul class="pagebtn">
-                        <li><a href="#" class="activ">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">Next</a></li>
-                        <li><a href="#">Last</a></li>
-                    </ul>
+                    <?php
+                    echo $agencyPagination->showPagination();
+                    ?>
+                    <!--                    <ul class="pagebtn">
+                                            <li><a href="#" class="activ">1</a></li>
+                                            <li><a href="#">2</a></li>
+                                            <li><a href="#">Next</a></li>
+                                            <li><a href="#">Last</a></li>
+                                        </ul>-->
                 </div>
             </div>
         </div>
