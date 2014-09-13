@@ -7,5 +7,5 @@
 
 <!-- style sheet css -->
 <link href="<?php echo CSS; ?>/font-awesome.css" rel="stylesheet" type="text/css"/>
-<link rel="stylesheet" href="../style.css" type="text/css"/>
+<link rel="stylesheet" href="<?php echo WEBSITE_URL ?>style.css" type="text/css"/>
 <link rel="stylesheet" href="<?php echo CSS; ?>/style.css" type="text/css"/>

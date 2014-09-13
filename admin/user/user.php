@@ -1,5 +1,7 @@
 <?php
 include '../../core.php';
+$session->loginRequired('admin');
+$Form = new Form();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -22,6 +24,11 @@ include '../../core.php';
 
         <!--table lay out div-->
         <div class="container">
+            <div class="row topmargin">
+                <div class="col-md-12">
+                    <?php echo $Form->error('success','alert alert-success') ?>
+                </div>
+            </div>
             <div class="row topmargin">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <a class="addmin" href="add-a-user.php">add a user</a>
@@ -56,7 +63,7 @@ include '../../core.php';
                         $user_sql = "SELECT u.*, a.agency_name FROM ".TBL_USER." u LEFT JOIN agency a ON (u.agency_id=a.id) WHERE u.type='user'";
 
                         $userPagination = new Pagination();
-                        $userPagination->limit = 1;
+                        $userPagination->limit = 30;
                         $userPagination->page  = isset($_GET['user_page']) ? $_GET['user_page'] : 0;
                         $userPagination->execute($user_count['total']);
 
