@@ -49,105 +49,49 @@ include '../core.php';
                             <th>agency</th>
                             <th colspan="2">Leads (yes/No)</th>
                         </tr>
-                        <tr>
-                            <td>Michael</td>
-                            <td>Smith</td>
-                            <td>bob@engleinsurance.com</td>
-                            <td>password1234</td>
-                            <td>555-123-4567</td>
-                            <td style="text-align:left !important;">Engle Insurance</td>
-                            <td>12 / 97</td>
-                            <td class="text-center"><input type="checkbox" name="" value="" /></td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
+
+                        <?php
+
+                        $user_count = mysql_fetch_array(mysql_query("SELECT COUNT(*) as total FROM ".TBL_USER." WHERE type='user'"));
+                        $user_sql = "SELECT u.*, a.agency_name FROM ".TBL_USER." u LEFT JOIN agency a ON (u.agency_id=a.id) WHERE u.type='user'";
+
+                        $userPagination = new Pagination();
+                        $userPagination->limit = 1;
+                        $userPagination->page  = isset($_GET['user_page']) ? $_GET['user_page'] : 0;
+                        $userPagination->execute($user_count['total']);
+
+                        $user_sql .= $userPagination->getLimitStr();
+
+                        $user_query = mysql_query($user_sql);
+
+
+                        while( $user_data = mysql_fetch_assoc($user_query) ) {
+                            ?>
+                            <tr>
+                                <td><?php echo $user_data['first_name'] ?></td>
+                                <td><?php echo $user_data['last_name'] ?></td>
+                                <td><?php echo $user_data['email'] ?></td>
+                                <td><?php echo $user_data['password'] ?></td>
+                                <td><?php echo $user_data['phone_no'] ?></td>
+                                <td><?php echo $user_data['agency_name'] ?></td>
+                                <!-- @todo : get leads count -->
+                                <td>12 / 97</td>
+                                <td class="text-center">
+                                    <input type="checkbox" name="users[]" value="<?php echo $user_data['id'] ?>" />
+                                </td>
+                            </tr>
+                            <?php
+
+                        }
+
+                        ?>
                     </table>
                 </div>
+
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <ul class="pagebtn">
-                        <li><a href="#" class="activ">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">Next</a></li>
-                        <li><a href="#">Last</a></li>
-                    </ul>
+                    <?php
+                    echo $userPagination->showPagination();
+                    ?>
                 </div>
             </div>
         </div>
