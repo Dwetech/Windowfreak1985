@@ -13,6 +13,7 @@ $Form = new Form();
         <?php
         include ROOT_DIR . 'include/head.php';
         ?>
+        <script type="text/javascript" src="<?php echo JS; ?>/jquery.min.js"></script>
     </head>
 
     <body>
@@ -53,7 +54,7 @@ $Form = new Form();
                                 <th>password</th>
                                 <th>phone</th>
                                 <th colspan="2">receive ‘yes’ emails?</th>
-                            </tr>
+                            </tr>‌
                             <?php
                             $user_count = mysql_fetch_array(mysql_query("SELECT COUNT(*) as total FROM " . TBL_USER . " WHERE type='admin' AND id!='" . $_SESSION['user_id'] . "'"));
                             $user_sql = "SELECT u.* FROM " . TBL_USER . " u WHERE u.type='admin' AND id!='" . $_SESSION['user_id'] . "'";
@@ -81,14 +82,16 @@ $Form = new Form();
                                         <?php
                                         if ($user_data['receive_email'] == 'Y') {
                                             ?>
-                                            <input type="radio" checked name="" value="Yes" class="radio-btn" />YES
-                                            <?php
-                                        } else {
-                                            ?>
-                                            No
-                                            <?php
-                                        }
-                                        ?>
+                                            <input onchange="update_admin('<?php echo $user_data['id']; ?>', 'N')" type="checkbox" checked 
+                                                   name="receive_email" value="N" />YES
+                                                   <?php
+                                               } else {
+                                                   ?>
+                                            <input onchange="update_admin('<?php echo $user_data['id']; ?>', 'Y')" type="checkbox" 
+                                                   name="receive_email" value="Y" />YES
+                                                   <?php
+                                               }
+                                               ?>
                                     </td>
                                     <td>
                                         <input type="checkbox" name="id[]" value="<?php echo $user_data['id']; ?>" />
@@ -110,4 +113,21 @@ $Form = new Form();
         </div>
         <!--table lay out div end-->
     </body>
+    <script>
+        function update_admin(id, receive) {
+
+            $.ajax({
+                url: 'action_update_administrator.php?id=' + id + '&receive_email=' + receive,
+                type: 'GET',
+                success: function (rslt) {
+                    
+                    if (rslt == false || rslt == 0) {
+                        alert('Update failed! Please try again.');
+                    }
+                    
+                    window.location.href = 'administrator.php';
+                }
+            });
+        }
+    </script>
 </html>
