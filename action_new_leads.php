@@ -58,12 +58,19 @@ if( !isset( $_POST['submit'] )) {
             $Form->setError('error','Database error! Please try again.');
             $Form->return_msg_to('view.php');
         } else {
-//
-//            if($lead_result == 'Y'){
-//
-//                $Email->setEmailTo('');
-//                $Email->sendMail();
-//            }
+
+            if($lead_result == 'Y'){
+
+                $Email->setEmailSubject('A new lead has been submitted.');
+                $Email->setMessage('');
+
+                $sentMailQuery = mysql_query("SELECT * FROM user WHERE type='admin' AND receive_email ='Y'");
+                while($sentMail = mysql_fetch_assoc($sentMailQuery)){
+                    $Email->setEmailTo($sentMail['email']);
+                    $Email->sendMail();
+                }
+
+            }
 
 
             $Form->setError('success','New Leads added successfully');
