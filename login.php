@@ -1,5 +1,7 @@
 <?php
 require('core.php');
+
+$banner = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_BANNER . ' ORDER BY RAND() LIMIT 1'));
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -52,7 +54,7 @@ require('core.php');
 
         <div class="container" style="margin-top:30px;">
             <div class="row banner" >
-                <img src="img/bg-babber'.jpg"  class="img-responsive" />
+                <img src="<?php echo WEBSITE_URL.'upload/'.$banner['file_name']; ?>"  class="img-responsive" />
             </div>
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center visittext">
                 <h3>want to learn more? visit www.yourlifedepartment.com<br/>
