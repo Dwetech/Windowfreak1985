@@ -1,303 +1,202 @@
 <?php
 include 'core.php';
+$session->loginRequired('user');
+$Form = new Form();
+
+$starter = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_STARTER . ' ORDER BY RAND() LIMIT 1'));
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Life Department - View</title>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Life Department - View</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="<?php echo CSS; ?>/bootstrap.css" type="text/css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+
+    <!--font css-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'/>
+
+    <!-- style sheet css -->
+    <link href="<?php echo CSS; ?>/font-awesome.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="<?php echo CSS; ?>/style.css" type="text/css"/>
+</head>
+
+<body>
+
+<!--header div-->
+<div class="header-bg blue">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 centeralign">
+                <a href="#">
+                    <img src="img/logo.png" alt="Life Department"/>
+                </a>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <ul class="headlogin text-center">
+                    <li><a href="#"><?php echo $_SESSION['first_name'] . " " . $_SESSION['last_name']; ?></a></li>
+                    <li>|</li>
+                    <li><a href="<?php echo WEBSITE_URL ?>logout.php">Sign-out <i class="fa fa-sign-out"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!--header div end-->
+
+<!--table lay out div-->
+<div class="container">
+    <div class="topmargin">
+        <div class="summary">
+            <a href="#"><img src="img/refeces.jpg" alt="r1" class="img-responsive pull-left"
+                             style="border-radius:5px 0px 0px 5px; border-right:1px solid #d2d2d2;"/></a>
+
+            <p class="tabletext pull-left" style="padding:10px 20px; width:81%;text-align:justify">
+                <?php echo $starter['starter']; ?>
+            </p>
+
+            <div class="c"></div>
+        </div>
+    </div>
+</div>
+
+<div class="container" style="margin-top:20px;">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <h2 class="" style="font-size:26px; line-height:30px;">New Leads</h2>
+
+            <div class="clearfix"></div>
+            <div id="reg">
+
+                <?php echo $Form->error('error','alert alert-danger') ?>
+                <?php echo $Form->error('leadsError','alert alert-danger') ?>
+                <?php echo $Form->error('success','alert alert-success') ?>
+                <form action="<?php echo WEBSITE_URL ?>action_new_leads.php" method="post">
+                    <input name="first_name" class="form-control1 inputone1" type="text" placeholder="FIRSTNAME">
+                    <input name="last_name" class="form-control1" type="text" placeholder="LASTNAME">
+                    <select name="lead_result" class="form-control1">
+                        <option value="">Lead Result</option>
+                        <option value="Y">Yes</option>
+                        <option value="N">No</option>
+                    </select>
+                    <select name="call_time" class="form-control1">
+                        <option value="">Time To Call</option>
+                        <?php
+                        for ($i = 8; $i <= 12; $i++) {
+                            echo '<option value="' . timeWatch($i) . '">' . timeWatch($i) . '</option>';
+                            echo '<option value="' . timeWatch($i + 0.5) . '">' . timeWatch($i + 0.5) . '</option>';
+                        }
+                        ?>
+                        <?php
+                        for ($i = 1; $i < 8; $i++) {
+                            echo '<option value="' . timeWatch($i) . '">' . timeWatch($i) . '</option>';
+                            echo '<option value="' . timeWatch($i + 0.5) . '">' . timeWatch($i + 0.5) . '</option>';
+                        }
+                        ?>
+                    </select>
+                    <input name="phone_no" class="form-control1" type="text" placeholder="PHONE NUMBER">
+                    <input name="notes" class="form-control1" type="text" placeholder="NOTES">
+                    <input name="submit" type="submit" value="SUBMIT" class="form-control1 btn1">
+                </form>
+
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+<div class="row" style="margin-top:20px;">
+<div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+    <h2 class="admin-box" style="margin:0px; line-height:30px;">All Leads</h2>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <tr>
+                <th>first name</th>
+                <th>last name</th>
+                <th>phone number</th>
+                <th>time to call</th>
+                <th>yes/no</th>
+                <th>date/time</th>
+
+            </tr>
+            <?php
+
+            $count = mysql_fetch_array(mysql_query('SELECT COUNT(*) as total FROM leads')) ;
+            $leadsSQL = 'SELECT * FROM ' . TBL_LEADS;
+            $Pagination = new Pagination();
+            $Pagination->limit = 30;
+            $Pagination->pageParam  = 'page';
+            $Pagination->execute($count['total']);
+            $leadsSQL .= $Pagination->getLimitStr();
+
+
+            $leadsQuery = mysql_query($leadsSQL);
+
+            while($leads = mysql_fetch_assoc($leadsQuery)){ ?>
+                <tr>
+                    <td><?php echo $leads['first_name'] ?></td>
+                    <td><?php echo $leads['last_name'] ?></td>
+                    <td><?php echo $leads['phone_no'] ?></td>
+                    <td><?php echo $leads['call_time'] ?></td>
+                    <td><?php echo $leads['lead_result']=='Y' ? 'YES - call them' : ''; ?></td>
+                    <td style="text-align:left;"><?php echo $leads['create_date'] ?></td>
+
+                </tr>
+            <?php } ?>
+        </table>
+    </div>
+
         <?php
-        include ROOT_DIR . 'include/head.php';
+        echo $Pagination->showPagination();
         ?>
-    </head>
+</div>
 
-    <body>
-        <!--header div-->
-        <div class="header-bg blue">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 centeralign">
-                        <a href="#">
-                            <img src="img/logo.png" alt="Life Department" />
-                        </a>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                        <ul class="headlogin text-center">
-                            <li><a href="#">ADMINISTRATOR</a></li>
-                            <li>|</li>
-                            <li><a href="#">Sign-out <i class="fa fa-sign-out"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--header div end-->
 
-        <!--table lay out div-->
-        <div class="container">
-            <div class="topmargin">
-                <div class="summary">
-                    <img src="img/refeces.jpg" alt="r1" class="img-responsive pull-left" style="border-radius:5px 0px 0px 5px; border-right:1px solid #d2d2d2;"/>
-                    <p class="tabletext pull-left" style="padding:10px 20px; width:81%;text-align:justify">I noticed that we don’t have your life insurance policy on file. There have been alot of changes in the industry and we may be able to save you some money on your Life Insurnace, can I schedule a call with our life department for a no-obligation review of your coverage?</p>
-                    <div class="c"></div>
-                </div>
-            </div>
-        </div>
+    <?php
+    $today_yes = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='Y' AND DATE(`create_date`) = CURDATE()" ));
+    $today_no = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='N' AND DATE(`create_date`) = CURDATE()" ));
 
-        <div class="container" style="margin-top:20px;">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <h2 class="" style="font-size:26px; line-height:30px;">New Leads</h2>
-                    <div class="clearfix"></div>
-                    <div id="reg">
-                        <input class="form-control1 inputone1" type="text" placeholder="FIRSTNAME">
-                            <input class="form-control1" type="text" placeholder="LASTNAME">
-                                <select class="form-control1">
-                                    <option>LEAD RESULT</option>
-                                    <option>LEAD RESULT</option>
-                                    <option>LEAD RESULT</option>
-                                    <option>LEAD RESULT</option>
-                                </select>
-                                <select class="form-control1">
-                                    <option>TIME TO CALL</option>
-                                    <option>LEAD RESULT</option>
-                                    <option>LEAD RESULT</option>
-                                    <option>LEAD RESULT</option>
-                                </select>
-                                <input class="form-control1" type="text" placeholder="PHONE NUMBER">
-                                    <input class="form-control1" type="text" placeholder="NOTES">
-                                        <input type="submit" value="SUBMIT" class="form-control1 btn1">
-                                            <div class="clearfix"></div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </div>
+    $week_yes = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='Y' AND YEARWEEK(`create_date`) = YEARWEEK(NOW())" ));
+    $week_no = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='N' AND YEARWEEK(`create_date`) = YEARWEEK(NOW())" ));
 
-                                            <div class="container">
-                                                <div class="row" style="margin-top:20px;">
-                                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-                                                        <h2 class="admin-box" style="margin:0px; line-height:30px;">All Leads</h2>
-                                                        <div class="table-responsive">
-                                                            <table class="table table-striped">
-                                                                <tr>
-                                                                    <th>first name</th>
-                                                                    <th>last name</th>
-                                                                    <th>phone number</th>
-                                                                    <th>time to call</th>
-                                                                    <th>yes/no</th>
-                                                                    <th>date/time</th>
+    $month_yes = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='Y' AND MONTH(`create_date`) = MONTH(NOW())" ));
+    $month_no = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='N' AND MONTH(`create_date`) = MONTH(NOW())" ));
 
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Michael</td>
-                                                                    <td>Smith</td>
-                                                                    <td>555-123-4567</td>
-                                                                    <td>8:00am</td>
-                                                                    <td>YES - call them</td>
-                                                                    <td style="text-align:left;">1/1/14 - 10:49am</td>
+    ?>
 
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
+<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+    <div id="summ" class="summary">
+        <h3>Summary</h3>
+        <hr style="height:1px; border-top:1px solid #d2d2d2; width:100%; margin:0px;"/>
+        <table class="table noborder">
+            <tr>
+                <td><span class="leadtitle">Leads Today</span> <span>yes: <?php echo $today_yes['leads'] ?></span> <span>No: <?php echo $today_no['leads'] ?></span></td>
+            </tr>
+            <tr>
+                <td><span class="leadtitle">Leads This Week</span> <span>yes: <?php echo $week_yes['leads'] ?></span> <span>No: <?php echo $week_no['leads'] ?></span></td>
+            </tr>
+            <tr>
+                <td><span class="leadtitle">Leads This Month</span> <span>yes: <?php echo $month_yes['leads'] ?></span> <span>No: <?php echo $month_no['leads'] ?></span></td>
+            </tr>
 
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                </tr>
-                                                                <tr>
+        </table>
+    </div>
+    <div class="summary" style="margin-top:20px;">
+        <h3>Talk to a Specialist</h3>
+        <hr style="height:1px; border-top:1px solid #d2d2d2; width:100%; margin:0px;"/>
+        <p style="margin:10px;font-size:16px; color:#626262;"><i class="fa fa-phone"></i> 123 1234 1234</p>
+    </div>
+    <div class="c"></div>
+</div>
 
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                </tr>
-                                                                <tr>
-
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                </tr>
-                                                                <tr>
-
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                </tr>
-                                                                <tr>
-
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                </tr>
-                                                                <tr>
-
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                </tr>
-                                                                <tr>
-
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                </tr>
-                                                                <tr>
-
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                </tr>
-                                                                <tr>
-
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                </tr>
-                                                                <tr>
-
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                </tr>
-                                                                <tr>
-
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                </tr>
-                                                                <tr>
-
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                </tr>
-                                                                <tr>
-
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                </tr>
-                                                                <tr>
-
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                </tr>
-                                                                <tr>
-
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                </tr>
-                                                                <tr>
-
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                </tr>
-                                                                <tr>
-
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                </tr>
-                                                                <tr>
-
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                    <td>&nbsp;</td>
-                                                                </tr>
-                                                            </table>
-                                                        </div>
-                                                        <ul class="pagebtn">
-                                                            <li><a href="#" class="activ">1</a></li>
-                                                            <li><a href="#">2</a></li>
-                                                            <li><a href="#">Next</a></li>
-                                                            <li><a href="#">Last</a></li>
-                                                        </ul>
-                                                    </div>
-
-                                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                                        <div id="summ" class="summary">
-                                                            <h3>Summary</h3>
-                                                            <hr style="height:1px; border-top:1px solid #d2d2d2; width:100%; margin:0px;"/>
-                                                            <table class="table noborder">
-                                                                <tr>
-                                                                    <td><span class="leadtitle">Leads Today</span> <span>yes: 2</span> <span>No:10</span></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><span class="leadtitle">Leads This Week</span> <span>yes: 2</span> <span>No:10</span></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><span class="leadtitle">Leads This Month</span> <span>yes: 2</span> <span>No:10</span></td>
-                                                                </tr>
-
-                                                            </table>
-                                                        </div>
-                                                        <div class="summary" style="margin-top:20px;">
-                                                            <h3>Talk to a Specialist</h3>
-                                                            <hr style="height:1px; border-top:1px solid #d2d2d2; width:100%; margin:0px;"/>
-                                                            <p style="margin:10px;font-size:16px; color:#626262;"><i class="fa fa-phone"></i> 123 1234 1234</p>
-                                                        </div>
-                                                        <div class="c"></div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            </div>
-                                            <!--table lay out div end-->
-                                            </body>
-                                            </html>
+</div>
+</div>
+</div>
+<!--table lay out div end-->
+</body>
+</html>

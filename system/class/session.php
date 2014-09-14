@@ -109,6 +109,8 @@ class Session
 
         $_SESSION['user_id']    = $user['id'];
         $_SESSION['user_email'] = $user['email'];
+        $_SESSION['first_name'] = $user['first_name'];
+        $_SESSION['last_name'] = $user['last_name'];
         $_SESSION['loginType']  = $user['type'];
 
     }
@@ -324,10 +326,11 @@ class Session
         
     function logout()
     {
-
         
         unset( $_SESSION['user_id'] );
         unset( $_SESSION['user_email'] );
+        unset( $_SESSION['first_name'] );
+        unset( $_SESSION['last_name'] );
         unset( $_SESSION['loginType'] );
         setcookie ("cookid", "", time()-COOKIE_EXPIRE);
         setcookie ("cookrand", "", time()-COOKIE_EXPIRE);

@@ -31,8 +31,11 @@ padding-left: 0;
 .editdelete{float:right;}
 .editdelete li{ font-size:14px; text-transform:uppercase;  display:block; float:left;}
 .editdelete li a{ color:#1947f3; border-right:1px solid #1947f3; display:block; padding:0px 5px; margin:4px 0px 0px 0px; text-decoration:underline; line-height:14px;}
+.editdelete li input{box-shadow: none;border: 0; color:#1947f3; border-right:1px solid #1947f3; display:block; padding:0px 5px; margin:4px 0px 0px 0px; text-decoration:underline; line-height:14px;}
 .editdelete li:last-child a{ border-right:none; }
+.editdelete li:last-child input{ border-right:none; }
 .editdelete li a:hover{ text-decoration:none;}
+.editdelete li input:hover{ text-decoration:none;}
 .admin-box{ border:1px solid #d2d2d2; border-bottom:none; border-radius:5px 5px 0px 0px; background:#fff; padding:7px 10px;}
 .admin-box h2{ margin:0px; line-height:30px;font-size:26px;}
 .table{ background:#fff; border:1px solid #d2d2d2; border-radius:0px 0px 5px 5px !important;margin-bottom:0px; }
@@ -129,7 +132,7 @@ padding-left: 0;
 }
 .inputone1{border-top-left-radius:5px;border-bottom-left-radius:5px;}
 
-.btn1{background:#5a0f94;color:#fff;border-top-right-radius:5px;border-bottom-right-radius:5px;padding:6px 15px;box-shadow:none 
+.btn1{background:#5a0f94;color:#fff;border-top-right-radius:5px;border-bottom-right-radius:5px;padding:6px 15px;box-shadow:none ;}
 @media (max-width: 767px) {
 .centeralign{ text-align:center;}	
 .headlogin{ float:none;}

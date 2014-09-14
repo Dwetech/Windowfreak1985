@@ -11,7 +11,7 @@
                 <ul class="headlogin text-center">
                     <li><a href="#">ADMINISTRATOR</a></li>
                     <li>|</li>
-                    <li><a href="#">Sign-out <i class="fa fa-sign-out"></i></a></li>
+                    <li><a href="<?php echo WEBSITE_URL ?>logout.php">Sign-out <i class="fa fa-sign-out"></i></a></li>
                 </ul>
             </div>
         </div>
