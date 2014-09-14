@@ -22,6 +22,23 @@ include '../core.php';
 
         <!--table lay out div-->
         <div class="container">
+
+            <?php
+
+            $today_yes = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='Y' AND DATE(`create_date`) = CURDATE()" ));
+            $today_no  = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='N' AND DATE(`create_date`) = CURDATE()" ));
+
+            $week_yes  = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='Y' AND YEARWEEK(`create_date`) = YEARWEEK(NOW())" ));
+            $week_no   = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='N' AND YEARWEEK(`create_date`) = YEARWEEK(NOW())" ));
+
+            $month_yes = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='Y' AND MONTH(`create_date`) = MONTH(NOW())" ));
+            $month_no  = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='N' AND MONTH(`create_date`) = MONTH(NOW())" ));
+
+            $total_yes = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) AS leads FROM ".TBL_LEADS." WHERE lead_result='Y'"));
+            $total_no  = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) AS leads FROM ".TBL_LEADS." WHERE lead_result='N'"));
+
+            ?>
+
             <div class="row topmargin">
                 <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12 summary">
 
@@ -29,16 +46,16 @@ include '../core.php';
                     <hr style="height:1px; border-top:1px solid #d2d2d2; width:100%; margin:0px;"/>
                     <table class="table noborder">
                         <tr>
-                            <td><span class="leadtitle">Leads Today</span> <span>yes: 2</span> <span>No:10</span></td>
-                            <td><span class="leadtitle">Leads This Week</span> <span>yes: 2</span> <span>No:10</span></td>
-                            <td><span class="leadtitle">Leads This Month</span> <span>yes: 2</span> <span>No:10</span></td>
-                            <td><span class="leadtitle">Total Leads</span> <span>yes: 2</span> <span>No:10</span></td>
+                            <td><span class="leadtitle">Leads Today</span> <span>yes: <?php echo $today_yes['leads'] ?></span> <span>No:<?php echo $today_no['leads'] ?></span></td>
+                            <td><span class="leadtitle">Leads This Week</span> <span>yes: <?php echo $week_yes['leads']; ?></span> <span>No: <?php echo $week_no['leads'] ?></span></td>
+                            <td><span class="leadtitle">Leads This Month</span> <span>yes: <?php echo $month_yes['leads'] ?></span> <span>No: <?php echo $month_no['leads'] ?></span></td>
+                            <td><span class="leadtitle">Total Leads</span> <span>yes: <?php echo $total_yes['leads'] ?></span> <span>No: <?php echo $total_no['leads'] ?></span></td>
                         </tr>
                     </table>
                 </div>
                 <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                     <ul class="editdelete" style="margin-top:90px;">
-                        <li><a href="#">export to csv</a></li>
+                        <li><a href="export_csv.php">export to csv</a></li>
                     </ul>
                 </div>
             </div>
@@ -59,165 +76,58 @@ include '../core.php';
                             <th>user (first last)</th>
                             <th>agency</th>
                         </tr>
-                        <tr>
-                            <td>Michael</td>
-                            <td>Smith</td>
-                            <td>555-123-4567</td>
-                            <td>8:00am</td>
-                            <td>YES - call them</td>
-                            <td style="text-align:left;">1/1/14 - 10:49am</td>
-                            <td style="text-align:left;">Angela Martin</td>
-                            <td>Engle insurance</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
+                        <?php
+
+                        $leads_count = mysql_fetch_array(mysql_query("SELECT COUNT(*) as total FROM " . TBL_LEADS . ""));
+                        $leads_sql = "SELECT
+                                        l.*,
+                                        u.first_name as user_first_name,
+                                        u.last_name as user_last_name,
+                                        a.agency_name
+                                     FROM
+                                        " . TBL_LEADS . " l
+                                     LEFT JOIN ".TBL_USER." u
+                                        ON (l.user_id=u.id)
+                                     LEFT JOIN ".TBL_AGENCY." a
+                                        ON (u.agency_id=a.id)
+                                     ORDER BY l.id DESC";
+
+                        $leadsPagination = new Pagination();
+
+                        $leadsPagination->limit = 30;
+                        $leadsPagination->pageParam = 'page';
+
+                        $leadsPagination->execute($leads_count['total']);
+
+                        $leads_sql .= $leadsPagination->getLimitStr();
+
+                        $leads_query = mysql_query($leads_sql);
+
+                        while( $leads = mysql_fetch_assoc($leads_query) ) {
+                        ?>
+                            <tr>
+                                <td><?php echo $leads['first_name'] ?></td>
+                                <td><?php echo $leads['last_name'] ?></td>
+                                <td><?php echo $leads['phone_no'] ?></td>
+                                <td><?php echo $leads['call_time'] ?></td>
+                                <td><?php echo $leads['lead_result'] == 'Y' ? 'YES -  call them' : 'NO - don\'t call them' ?></td>
+                                <td><?php echo $leads['create_date'] ?></td>
+                                <td><?php echo $leads['user_first_name'].' '.$leads['user_last_name'] ?></td>
+                                <td><?php echo $leads['agency_name'] ?></td>
+                            </tr>
+                        <?php
+                        }
+
+
+                        ?>
+
+
                     </table>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <ul class="pagebtn">
-                        <li><a href="#" class="activ">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">Next</a></li>
-                        <li><a href="#">Last</a></li>
-                    </ul>
+                    <?php
+                        echo $leadsPagination->showPagination();
+                    ?>
                 </div>
             </div>
         </div>

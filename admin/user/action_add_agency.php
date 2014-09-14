@@ -1,7 +1,7 @@
 <?php
 
 include '../../core.php';
-
+$session->loginRequired('admin',false);
 $form = new Form();
 
 if (isset($_POST['add_agency']) && $_POST['add_agency'] == 'ADD') {

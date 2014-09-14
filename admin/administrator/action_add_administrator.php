@@ -7,7 +7,7 @@
  */
 
 include '../../core.php';
-$session->loginRequired('admin');
+$session->loginRequired('admin', false);
 
 $Form = new Form();
 

@@ -6,7 +6,7 @@
                 <ul class="menu">
                     <li><a href="<?php echo WEBSITE_URL; ?>admin/dashboard.php">dashboard</a></li>
                     <li><a href="<?php echo WEBSITE_URL; ?>admin/user/user.php">users</a></li>
-                    <li><a href="<?php echo WEBSITE_URL; ?>admin/starter/Starters.php">starters</a></li>
+                    <li><a href="<?php echo WEBSITE_URL; ?>admin/starter/starters.php">starters</a></li>
                     <li><a href="<?php echo WEBSITE_URL; ?>admin/banner/add-banner.php">banners</a></li>
                     <li><a class="active" href="<?php echo WEBSITE_URL; ?>admin/administrator/administrator.php">administrators</a></li>
                 </ul>
