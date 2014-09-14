@@ -33,7 +33,7 @@ $banner = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_BANNER . ' ORDER 
                             <p class="keep"><input type="checkbox" name="remember_me" value="1" class="cbox"/>Keep me logged in</p>
                             </li>
                             <li><input type="password" name="password" value="" placeholder="password" class="passtext" />
-                            <p class="keep">forgot your password?</p>
+                            <a href="forgot_password.php" class="keep">forgot your password?</a>
                             </li>
                             <li><input type="submit" value="Login" name="Login" class="loginbtn" /></li>
                         </ul>
