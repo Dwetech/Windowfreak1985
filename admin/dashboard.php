@@ -59,165 +59,58 @@ include '../core.php';
                             <th>user (first last)</th>
                             <th>agency</th>
                         </tr>
-                        <tr>
-                            <td>Michael</td>
-                            <td>Smith</td>
-                            <td>555-123-4567</td>
-                            <td>8:00am</td>
-                            <td>YES - call them</td>
-                            <td style="text-align:left;">1/1/14 - 10:49am</td>
-                            <td style="text-align:left;">Angela Martin</td>
-                            <td>Engle insurance</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
+                        <?php
+
+                        $leads_count = mysql_fetch_array(mysql_query("SELECT COUNT(*) as total FROM " . TBL_LEADS . ""));
+                        $leads_sql = "SELECT
+                                        l.*,
+                                        u.first_name as user_first_name,
+                                        u.last_name as user_last_name,
+                                        a.agency_name
+                                     FROM
+                                        " . TBL_LEADS . " l
+                                     LEFT JOIN ".TBL_USER." u
+                                        ON (l.user_id=u.id)
+                                     LEFT JOIN ".TBL_AGENCY." a
+                                        ON (u.agency_id=a.id)
+                                     ORDER BY l.id DESC";
+
+                        $leadsPagination = new Pagination();
+
+                        $leadsPagination->limit = 30;
+                        $leadsPagination->pageParam = 'page';
+
+                        $leadsPagination->execute($leads_count['total']);
+
+                        $leads_sql .= $leadsPagination->getLimitStr();
+
+                        $leads_query = mysql_query($leads_sql);
+
+                        while( $leads = mysql_fetch_assoc($leads_query) ) {
+                        ?>
+                            <tr>
+                                <td><?php echo $leads['first_name'] ?></td>
+                                <td><?php echo $leads['last_name'] ?></td>
+                                <td><?php echo $leads['phone_no'] ?></td>
+                                <td><?php echo $leads['call_time'] ?></td>
+                                <td><?php echo $leads['lead_result'] == 'Y' ? 'YES -  call them' : 'NO - don\'t call them' ?></td>
+                                <td><?php echo $leads['call_time'] ?></td>
+                                <td><?php echo $leads['user_first_name'].' '.$leads['user_last_name'] ?></td>
+                                <td><?php echo $leads['agency_name'] ?></td>
+                            </tr>
+                        <?php
+                        }
+
+
+                        ?>
+
+
                     </table>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <ul class="pagebtn">
-                        <li><a href="#" class="activ">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">Next</a></li>
-                        <li><a href="#">Last</a></li>
-                    </ul>
+                    <?php
+                        echo $leadsPagination->showPagination();
+                    ?>
                 </div>
             </div>
         </div>
