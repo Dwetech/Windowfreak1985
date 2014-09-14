@@ -1,9 +1,4 @@
 <?php
-/**
- * User: aajahid
- * Date: 9/13/14
- * Time: 6:50 PM
- */
 require('core.php');
 
 if( !isset( $_POST['email'] ) || !isset($_POST['password']) ) {

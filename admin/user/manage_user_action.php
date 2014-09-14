@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by N0B0DY.
- * User: me@suvo.me
- * Date: 9/14/14
- * Time: 12:03 AM
- */
 require('../../core.php');
 
 $session->loginRequired('admin',false);

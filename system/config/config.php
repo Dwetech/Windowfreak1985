@@ -1,11 +1,5 @@
 <?php
 
-/*
-Constant.php
-All constact define here
-All right reserved. Copyright Abdullah Al Jahid
-*/
-
 // Database Table definition
 define ( 'DB_HOST', '192.168.2.104' );
 //define ( 'DB_HOST', 'localhost' );
