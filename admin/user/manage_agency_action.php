@@ -6,7 +6,14 @@ $session->loginRequired('admin', false);
 
 $Form = new Form();
 
-if (isset($_POST['delete_agency']) && $_POST['delete_agency'] == 'DELETE') {
+
+if (!isset($_POST['agency_id'])) {
+
+    $Form->setError('error', 'Please select a agency!');
+    $Form->return_msg_to('user.php');
+}
+
+if (isset($_POST['delete_agency'])) {
 
 
     $agency_id = $_POST['agency_id'];
@@ -24,7 +31,7 @@ if (isset($_POST['delete_agency']) && $_POST['delete_agency'] == 'DELETE') {
 
     $Form->setError('success', 'Agency(s) deleted successfully!');
     $Form->return_msg_to('user.php');
-} else if (isset($_POST['edit_agency']) && $_POST['edit_agency'] == 'EDIT') {
+} else if (isset($_POST['edit_agency'])) {
 
     $agency_id = $_POST['agency_id'];
 

@@ -1,5 +1,5 @@
 <?php
-include '../core.php';
+include '../../core.php';
 $session->loginRequired('admin');
 $form = new Form();
 ?>
@@ -36,7 +36,7 @@ $form = new Form();
                     <div class="clearfix"></div>
 
                     <div id="reg">
-                        <form action="<?php echo WEBSITE_URL; ?>starter/add_action.php" method="POST">
+                        <form action="<?php echo WEBSITE_URL; ?>admin/starter/add_action.php" method="POST">
                             <input class="control inputone specific" type="text" placeholder="CONVERSATION STARTER TEXT" name="starter"/>
                             <input type="submit" name="submit_starter" value="ADD" class="form-control btn"/>
                         </form>
