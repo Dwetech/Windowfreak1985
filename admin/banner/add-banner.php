@@ -1,5 +1,6 @@
 <?php
 include '../../core.php';
+$session->loginRequired('admin',false);
 $Form = new Form();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
