@@ -38,8 +38,8 @@ $Form = new Form();
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 
                         <ul class="editdelete">
-                            <li><input type="submit" name="edit_user" value="edit"></li>
-                            <li><input type="submit" name="delete_user" value="delete"></a></li>
+                            <li><input type="submit" name="edit_user" value="EDIT"></li>
+                            <li><input type="submit" name="delete_user" value="DELETE"></a></li>
                         </ul>
 
                 </div>

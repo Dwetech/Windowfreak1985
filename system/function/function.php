@@ -291,4 +291,36 @@ function remove_contacts($text) {
     return cleaner($text);
 }
 
+
+// From 8am to 8pm
+function timeWatch($time){
+    switch($time){
+        case 1  : $watch = "01:00pm - 01:30pm";break;
+        case 1.5: $watch = "01:30pm - 02:00pm";break;
+        case 2  : $watch = "02:00pm - 02:30pm";break;
+        case 2.5: $watch = "02:30pm - 03:00pm";break;
+        case 3  : $watch = "03:00pm - 03:30pm";break;
+        case 3.5: $watch = "03:30pm - 04:00pm";break;
+        case 4  : $watch = "04:00pm - 04:30pm";break;
+        case 4.5: $watch = "04:30pm - 05:00pm";break;
+        case 5  : $watch = "05:00pm - 05:30pm";break;
+        case 5.5: $watch = "05:30pm - 06:00pm";break;
+        case 6  : $watch = "06:00pm - 06:30pm";break;
+        case 6.5: $watch = "06:30pm - 07:00pm";break;
+        case 7  : $watch = "07:00pm - 07:30pm";break;
+        case 7.5: $watch = "07:30pm - 08:00pm";break;
+        case 8  : $watch = "08:00am - 08:30am";break;
+        case 8.5: $watch = "08:30am - 09:00am";break;
+        case 9  : $watch = "09:00am - 09:30am";break;
+        case 9.5: $watch = "09:30am - 10:00am";break;
+        case 10 : $watch = "10:00am - 10:30am";break;
+        case 10.5: $watch = "10:30am - 11:00am";break;
+        case 11: $watch = "11:00am - 11:30am";break;
+        case 11.5: $watch = "11:30am - 12:00pm";break;
+        case 12: $watch = "12:00pm - 12:30pm";break;
+        case 12.5: $watch = "12:30pm - 01:00pm";break;
+    }
+    return $watch;
+}
+
 ?>
