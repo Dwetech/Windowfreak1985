@@ -1,13 +1,8 @@
 <?php
 
-/*
-Constant.php
-All constact define here
-All right reserved. Copyright Abdullah Al Jahid
-*/
-
 // Database Table definition
 define ( 'DB_HOST', '192.168.2.104' );
+//define ( 'DB_HOST', 'localhost' );
 define ( 'DB_USER', 'root' );
 define ( 'DB_PASSWORD', '' );
 define ( 'DB_NAME', 'life_department_db' );
@@ -21,6 +16,7 @@ define ( 'TBL_LEADS', 'leads' );
 
 // Website URL
 define ( 'WEBSITE_URL', 'http://localhost/Windowfreak1985/' );
+//define ( 'WEBSITE_URL', 'http://localhost/suvo.me/Windowfreak1985/' );
 
 // cookie
 define ( 'COOKIE_EXPIRE', 60*60*24*15 ); // seconds * Minutes * Hours * days

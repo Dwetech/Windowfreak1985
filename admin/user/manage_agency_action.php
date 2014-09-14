@@ -1,11 +1,5 @@
 <?php
 
-/*
-  Created on : Sep 14, 2014, 1:12:04 PM
-  Author        : me@rafi.pro
-  Name         : Mohammad Faozul Azim Rafi
- */
-
 require('../../core.php');
 
 $session->loginRequired('admin', false);

@@ -1,9 +1,4 @@
 <?php
-/**
- * User: aajahid
- * Date: 9/13/14
- * Time: 8:30 PM
- */
 require('../../core.php');
 $session->loginRequired('admin',false);
 $Form = new Form();
