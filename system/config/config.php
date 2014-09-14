@@ -12,6 +12,7 @@ define ( 'TBL_USER', 'user' );
 define ( 'TBL_AGENCY', 'agency' );
 define ( 'TBL_STARTER', 'starter' );
 define ( 'TBL_LEADS', 'leads' );
+define ( 'TBL_BANNER', 'banner' );
 
 
 // Website URL
@@ -29,6 +30,7 @@ define ( 'COOKIE_EXPIRE', 60*60*24*15 ); // seconds * Minutes * Hours * days
 define('CSS' , WEBSITE_URL.'css');
 define('JS' , WEBSITE_URL.'js');
 define('IMG' , WEBSITE_URL.'img');
+define('UPLOAD_DIR' , ROOT_DIR.'upload/');
 
 
 
