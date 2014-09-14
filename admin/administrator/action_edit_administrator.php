@@ -10,6 +10,7 @@ if( !isset($_POST['id']) || empty($_POST['id']) ) {
     $Form->setError('error','No Admin ID Found!');
     $Form->return_msg_to('administrator.php');
 } else {
+    
     $user_query = mysql_query("SELECT * FROM ".TBL_USER." WHERE id='".cleanData($_POST['id'])."'");
 
     if( mysql_num_rows($user_query) < 1 ) {
@@ -60,7 +61,7 @@ if( !isset( $_POST['phone'] ) || empty($_POST['phone']) ) {
  * Redirect back to form page
  */
 if( $Form->num_errors > 0 ) {
-    $Form->return_msg_to('edit_administrator.php');
+    $Form->return_msg_to('edit_administrator.php?id=' . cleanData($_POST['id']));
 }
 
 
@@ -87,7 +88,7 @@ $update = updateQuery(TBL_USER, $update_data, 'id="'.$id.'"');
 if( !$update ) {
 
     $Form->setError('error','Database error! Please try again.');
-    $Form->return_msg_to('edit_administrator.php');
+    $Form->return_msg_to('edit_administrator.php?id=' . cleanData($_POST['id']));
 } else {
     
     $Form->setError('success','Admin updated successfully');
