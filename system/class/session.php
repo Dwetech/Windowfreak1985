@@ -316,8 +316,8 @@ class Session
         unset( $_SESSION['user_email'] );
         unset( $_SESSION['loginType'] );
 
-        setcookie ("cookid", "", time()-COOKIE_EXPIRE, COOKIE_PATH);
-        setcookie ("cookrand", "", time()-COOKIE_EXPIRE, COOKIE_PATH);
+        setcookie ("cookid", "", time()-COOKIE_EXPIRE);
+        setcookie ("cookrand", "", time()-COOKIE_EXPIRE);
 
     }
                      
@@ -329,8 +329,8 @@ class Session
         unset( $_SESSION['user_id'] );
         unset( $_SESSION['user_email'] );
         unset( $_SESSION['loginType'] );
-        setcookie ("cookid", "", time()-COOKIE_EXPIRE, COOKIE_PATH);
-        setcookie ("cookrand", "", time()-COOKIE_EXPIRE, COOKIE_PATH);
+        setcookie ("cookid", "", time()-COOKIE_EXPIRE);
+        setcookie ("cookrand", "", time()-COOKIE_EXPIRE);
               
 
     }

@@ -1,5 +1,6 @@
 <?php
-include '../core.php';
+include '../../core.php';
+$session->loginRequired('admin');
 
 $form = new Form();
 
@@ -37,7 +38,7 @@ $data = mysql_query($sql);
             <?php echo $form->error('starter_error', 'alert alert-danger'); ?>
             <?php echo $form->error('starter_success', 'alert alert-success'); ?>
 
-            <form action="<?php echo WEBSITE_URL; ?>starter/edit_action.php" method="POST">
+            <form action="edit_action.php" method="POST">
                 <div class="row topmargin">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <p class="addmin"><a href="add-starter.php">add a starter</a></p>

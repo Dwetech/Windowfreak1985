@@ -46,10 +46,12 @@ class Form
     * value - Returns the value attached to the given
     * field, if none exists, the empty string is returned.
     */
-   function value($field){
+   function value($field, $default=false){
       if(array_key_exists($field,$this->values)){
          return stripslashes($this->values[$field]);
-      }else{
+      }elseif($default){
+         return $default;
+      } else {
          return "";
       }
    }

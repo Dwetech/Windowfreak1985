@@ -27,17 +27,21 @@ $Form = new Form();
             <div class="row topmargin">
                 <div class="col-md-12">
                     <?php echo $Form->error('success','alert alert-success') ?>
+                    <?php echo $Form->error('error','alert alert-danger') ?>
                 </div>
             </div>
+            <form action="manage_user_action.php" method="post">
             <div class="row topmargin">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <a class="addmin" href="add-a-user.php">add a user</a>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <ul class="editdelete">
-                        <li><a href="#">edit</a></li>
-                        <li><a href="#">delete</a></li>
-                    </ul>
+
+                        <ul class="editdelete">
+                            <li><input type="submit" name="edit_user" value="edit"></li>
+                            <li><input type="submit" name="delete_user" value="delete"></a></li>
+                        </ul>
+
                 </div>
             </div>
 
@@ -64,7 +68,7 @@ $Form = new Form();
                         $userPagination = new Pagination();
                         
                         $userPagination->limit = 30;
-                        $userPagination->page  = isset($_GET['user_page']) ? $_GET['user_page'] : 0;
+                        $userPagination->pageParam  = 'user_page';
 
                         $userPagination->execute($user_count['total']);
 
@@ -100,6 +104,7 @@ $Form = new Form();
                     ?>
                 </div>
             </div>
+            </form>
         </div>
         <!--table lay out div end-->
 
@@ -135,8 +140,8 @@ $Form = new Form();
                         $agency_sql = "SELECT * FROM " . TBL_AGENCY;
 
                         $agencyPagination = new Pagination();
-                        $agencyPagination->limit = 1;
-                        $agencyPagination->page = isset($_GET['agency_page']) ? $_GET['agency_page'] : 0;
+                        $agencyPagination->limit = 30;
+                        $agencyPagination->pageParam = 'agency_page';
                         $agencyPagination->execute($agency_count['total']);
 
                         $agency_sql .= $agencyPagination->getLimitStr();

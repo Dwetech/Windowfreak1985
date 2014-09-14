@@ -29,6 +29,7 @@
       var $ajax_type = false;
       var $ajax_url;
       var $div_pagination_id;
+      var $pageParam = 'page'; // the 'get' parameter ex. $_GET['page']
       
       function pagination ( $thesql = false )
         {
@@ -40,9 +41,9 @@
           $this->totalResult = $totalItem;
           $this->pagetotal = ceil( ($this->totalResult) / $this->limit );
 
-          if( (int)isset($_GET['page']) )
+          if( (int)isset($_GET[$this->pageParam]) )
           {
-              $this->page = $_GET['page'];
+              $this->page = $_GET[$this->pageParam];
           }
           else
           {
@@ -69,9 +70,9 @@
             $this->totalResult = mysql_num_rows(mysql_query($this->sql));
             $this->pagetotal = ceil(($this->totalResult)/$this->limit);
 
-            if ((int)isset($_GET['page']))
+            if ((int)isset($_GET[$this->pageParam]))
             {
-                $this->page = $_GET['page'];
+                $this->page = $_GET[$this->pageParam];
             }
             else
             {
@@ -146,16 +147,21 @@
              $html .= '<div class="pagination"><ul class="pagebtn">';
                         if ($this->page>1)
                         {
-                            $html .= '<li><a href="?'.$this->pagereferer.'page=1" title="Go to first page"';
+                            $html .= '<li><a href="?'.$this->pagereferer.
+                                                    $this->pageParam.'=1" title="Go to first page"';
                             if($this->ajax_type)
                             {
-                                $html .= ' onclick="ajaxPagination(\''.$this->ajax_url.'?'.$this->pagereferer.'page=1\',\''.$this->div_pagination_id.'\'); return false;"';
+                                $html .= ' onclick="ajaxPagination(\''.$this->ajax_url.'?'.$this->pagereferer.
+                                    $this->pageParam.'=1\',\''.$this->div_pagination_id.'\'); return false;"';
                             }
                             $html .= '>First</a></li>
-                            <li><a href="?'.$this->pagereferer.'page='.($this->page-1).'" title="Go to previous page"';
+                                    <li>
+                                        <a href="?'.$this->pagereferer.
+                                        $this->pageParam.'='.($this->page-1).'" title="Go to previous page"';
                             if($this->ajax_type)
                             {
-                                $html .= ' onclick="ajaxPagination(\''.$this->ajax_url.'?'.$this->pagereferer.'page='.($this->page-1).'\',\''.$this->div_pagination_id.'\'); return false;"';
+                                $html .= ' onclick="ajaxPagination(\''.$this->ajax_url.'?'.$this->pagereferer.
+                                            $this->pageParam.'='.($this->page-1).'\',\''.$this->div_pagination_id.'\'); return false;"';
                             }
                             $html .= '>Prev</a></li>';
                         }
@@ -172,23 +178,37 @@
                             }
                             else
                             {
-                                $html .= '<li><a href="?'.$this->pagereferer.'page='.$i.'" title="Go to page '.$i.'"';
+                                $html .= '<li>
+                                            <a href="?'.$this->pagereferer.
+                                                        $this->pageParam.'='.$i.'"
+                                            title="Go to page '.$i.'"';
+
                                 if($this->ajax_type)
                                 {
-                                    $html .= ' onclick="ajaxPagination(\''.$this->ajax_url.'?'.$this->pagereferer.'page='.$i.'\',\''.$this->div_pagination_id.'\'); return false;"';
+                                    $html .= ' onclick="ajaxPagination(\''.$this->ajax_url.'?'.$this->pagereferer.
+                                        $this->pageParam.'='.$i.'\',\''.$this->div_pagination_id.'\'); return false;"';
                                 }
                                 $html .= '>'.$i.'</a></li>';
                             }
                         }
                         if ($this->page<$this->pagetotal)
                         {
-                            $html .= '<li><a href="?'.$this->pagereferer.'page='.($this->page+1).'" title="Go to next page"';
+                            $html .= '<li>
+                                        <a href="?'.$this->pagereferer.
+                                                    $this->pageParam.'='.($this->page+1).'"
+                                                    title="Go to next page"';
+
                             if($this->ajax_type)
                             {
-                                $html .= ' onclick="ajaxPagination(\''.$this->ajax_url.'?'.$this->pagereferer.'page='.($this->page+1).'\',\''.$this->div_pagination_id.'\'); return false;"';
+                                $html .= ' onclick="ajaxPagination(\''.$this->ajax_url.'?'.$this->pagereferer.
+                                    $this->pageParam.'='.($this->page+1).'\',\''.$this->div_pagination_id.'\'); return false;"';
                             }
+
                             $html .= '>Next</a></li>
-                            <li><a href="?'.$this->pagereferer.'page='.$this->pagetotal.'" title="Go to last page">Last</a></li>';
+                                     <li>
+                                        <a href="?'.$this->pagereferer.
+                                            $this->pageParam.'='.$this->pagetotal.'" title="Go to last page">Last</a>
+                                     </li>';
                         }
                         /*else
                         {

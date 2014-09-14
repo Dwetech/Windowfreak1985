@@ -50,8 +50,8 @@ if (isset($_POST['add_agency']) && $_POST['add_agency'] == 'ADD') {
 
         if ($status) {
 
-            $form->setError('agency_success', 'Conversation added successfully!');
-            $form->return_msg_to(WEBSITE_URL . 'admin/user/add-an-agency.php');
+            $form->setError('success', 'Agency added successfully!');
+            $form->return_msg_to( 'user.php');
         } else {
             
             $form->setError('agency_error', 'Agency add failed! Please try again.');
