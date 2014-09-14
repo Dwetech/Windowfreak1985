@@ -5,7 +5,8 @@ $session->loginRequired('admin',false);
 
 $Form = new Form();
 
-if( isset($_POST['delete_user']) && $_POST['delete_user'] == 'delete' ) {
+
+if( isset($_POST['delete_user']) ) {
 
     $users = $_POST['users'];
 
@@ -24,7 +25,7 @@ if( isset($_POST['delete_user']) && $_POST['delete_user'] == 'delete' ) {
     $Form->return_msg_to( 'user.php');
 
 }
-elseif( isset($_POST['edit_user']) && $_POST['edit_user'] == 'edit' ) {
+elseif( isset($_POST['edit_user']) ) {
 
     $users = $_POST['users'];
 
@@ -38,3 +39,4 @@ elseif( isset($_POST['edit_user']) && $_POST['edit_user'] == 'edit' ) {
 
     redirect('edit_user.php?id='.$id);
 }
+redirect('user.php');
