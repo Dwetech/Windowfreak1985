@@ -77,7 +77,11 @@ $Form = new Form();
                             $user_query = mysql_query($user_sql);
 
 
+                            $lead_count_y['count'] = 0;
+                            $lead_count_n['count'] = 0;
                             while ($user_data = mysql_fetch_assoc($user_query)) {
+                                $lead_count_y = mysql_fetch_array(mysql_query("SELECT COUNT(*) as count FROM " . TBL_LEADS . " WHERE user_id='" . $user_data['id'] . "' AND lead_result='Y'"));
+                                $lead_count_n = mysql_fetch_array(mysql_query("SELECT COUNT(*) as count FROM " . TBL_LEADS . " WHERE user_id='" . $user_data['id'] . "' AND lead_result='N'"));
                                 ?>
                                 <tr>
                                     <td><?php echo $user_data['first_name'] ?></td>
@@ -87,7 +91,7 @@ $Form = new Form();
                                     <td><?php echo $user_data['phone_no'] ?></td>
                                     <td><?php echo $user_data['agency_name'] ?></td>
                                     <!-- @todo : get leads count -->
-                                    <td>12 / 97</td>
+                                    <td><?php echo $lead_count_y['count'] . '/' . $lead_count_n['count']; ?></td>
                                     <td class="text-center">
                                         <input type="checkbox" name="users[]" value="<?php echo $user_data['id'] ?>" />
                                     </td>
@@ -151,14 +155,21 @@ $Form = new Form();
 
                             if (mysql_num_rows($agency_query) > 0) {
 
+                                $lead_count_y['count'] = 0;
+                                $lead_count_n['count'] = 0;
                                 while ($data = mysql_fetch_assoc($agency_query)) {
+                                    //Count lead_result
+                                    $lead_count_y = mysql_fetch_array(mysql_query(
+                                            "SELECT COUNT(*) AS count FROM leads WHERE lead_result = 'Y' AND user_id IN(SELECT id FROM user WHERE agency_id = '" . $data['id'] . "')"));
+                                    $lead_count_n = mysql_fetch_array(mysql_query(
+                                            "SELECT COUNT(*) AS count FROM leads WHERE lead_result = 'N' AND user_id IN(SELECT id FROM user WHERE agency_id = '" . $data['id'] . "')"));
                                     ?>
                                     <tr>
                                         <td><?php echo $data['agency_name']; ?></td>
                                         <td><?php echo $data['primary_contact']; ?></td>
                                         <td><?php echo $data['email']; ?></td>
                                         <td><?php echo $data['phone_no']; ?></td>
-                                        <td class="text-center"><?php echo $data['create_date']; ?></td>
+                                        <td><?php echo $lead_count_y['count'] . '/' . $lead_count_n['count']; ?></td>
                                         <td class="text-center"><input type="checkbox" name="agency_id[]" value="<?php echo $data['id']; ?>" /></td>
                                     </tr>
                                     <?php

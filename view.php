@@ -158,14 +158,14 @@ $starter = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_STARTER . ' ORDE
 
 
     <?php
-    $today_yes = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='Y' AND DATE(`create_date`) = CURDATE()" ));
-    $today_no = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='N' AND DATE(`create_date`) = CURDATE()" ));
+    $today_yes = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='Y' AND user_id=".$_SESSION['user_id']." AND DATE(`create_date`) = CURDATE()" ));
+    $today_no = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='N' AND user_id=".$_SESSION['user_id']." AND DATE(`create_date`) = CURDATE()" ));
 
-    $week_yes = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='Y' AND YEARWEEK(`create_date`) = YEARWEEK(NOW())" ));
-    $week_no = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='N' AND YEARWEEK(`create_date`) = YEARWEEK(NOW())" ));
+    $week_yes = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='Y' AND user_id=".$_SESSION['user_id']." AND YEARWEEK(`create_date`) = YEARWEEK(NOW())" ));
+    $week_no = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='N' AND user_id=".$_SESSION['user_id']." AND YEARWEEK(`create_date`) = YEARWEEK(NOW())" ));
 
-    $month_yes = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='Y' AND MONTH(`create_date`) = MONTH(NOW())" ));
-    $month_no = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='N' AND MONTH(`create_date`) = MONTH(NOW())" ));
+    $month_yes = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='Y' AND user_id=".$_SESSION['user_id']." AND MONTH(`create_date`) = MONTH(NOW())" ));
+    $month_no = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='N' AND user_id=".$_SESSION['user_id']." AND MONTH(`create_date`) = MONTH(NOW())" ));
 
     ?>
 
