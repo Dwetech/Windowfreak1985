@@ -5,15 +5,17 @@ $Form = new Form();
 
 
 //User ID
-if( !isset($_POST['user_id']) || empty($_POST['user_id']) ) {
-    $Form->setError('error','No User ID Found!');
-    $Form->return_msg_to('user.php');
+if( !isset($_POST['id']) || empty($_POST['id']) ) {
+    
+    $Form->setError('error','No Admin ID Found!');
+    $Form->return_msg_to('administrator.php');
 } else {
-    $user_query = mysql_query("SELECT * FROM ".TBL_USER." WHERE id='".cleanData($_POST['user_id'])."'");
+    $user_query = mysql_query("SELECT * FROM ".TBL_USER." WHERE id='".cleanData($_POST['id'])."'");
 
     if( mysql_num_rows($user_query) < 1 ) {
-        $Form->setError('error', 'No user found!');
-        $Form->return_msg_to('user.php');
+        
+        $Form->setError('error', 'No admin found!');
+        $Form->return_msg_to('administrator.php');
     }
 }
 
@@ -34,9 +36,9 @@ if( !isset( $_POST['email'] ) || empty($_POST['email']) ) {
 } elseif( !is_valid_email($_POST['email']) ) {
     $Form->setError('error','Please write a valid Email address');
 } else {
-    $user_check_query = mysql_query('SELECT * FROM '.TBL_USER.' WHERE email="'.cleanData($_POST['email']).'" AND id != "'.cleanData($_POST['user_id']).'"');
+    $user_check_query = mysql_query('SELECT * FROM '.TBL_USER.' WHERE email="'.cleanData($_POST['email']).'" AND id != "'.cleanData($_POST['id']).'"');
     if( mysql_num_rows($user_check_query) > 0 ) {
-        $Form->setError('error','User with '.$_POST['email'].' is already exist!');
+        $Form->setError('error','Admin with '.$_POST['email'].' is already exist!');
     }
 }
 
@@ -52,31 +54,27 @@ if( !isset( $_POST['phone'] ) || empty($_POST['phone']) ) {
 }
 
 
-// Agency
-if( !isset( $_POST['agency'] ) || empty($_POST['agency']) ) {
-    $Form->setError('error','Please select a agency');
-}
 
 /**
  * Error Found!
  * Redirect back to form page
  */
 if( $Form->num_errors > 0 ) {
-    $Form->return_msg_to('edit_user.php');
+    $Form->return_msg_to('edit_administrator.php');
 }
 
 
-$user_id    = cleanData($_POST['user_id']);
+$id    = cleanData($_POST['id']);
 $first_name = cleanData($_POST['first_name']);
 $last_name  = cleanData($_POST['last_name']);
 $email      = cleanData($_POST['email']);
 $password   = cleanData($_POST['password']);
 $phone      = cleanData($_POST['phone']);
-$agency     = cleanData($_POST['agency']);
+$receive_email     = cleanData($_POST['receive_email']);
 
 
 $update_data = array(
-    'agency_id' => $agency,
+    'receive_email' => $receive_email,
     'first_name' => $first_name,
     'last_name' => $last_name,
     'email' => $email,
@@ -84,12 +82,14 @@ $update_data = array(
     'phone_no' => $phone
 );
 
-$update = updateQuery(TBL_USER, $update_data, 'id="'.$user_id.'"');
+$update = updateQuery(TBL_USER, $update_data, 'id="'.$id.'"');
 
 if( !$update ) {
+
     $Form->setError('error','Database error! Please try again.');
-    $Form->return_msg_to('edit_user.php');
+    $Form->return_msg_to('edit_administrator.php');
 } else {
-    $Form->setError('success','User updated successfully');
-    $Form->return_msg_to('user.php');
+    
+    $Form->setError('success','Admin updated successfully');
+    $Form->return_msg_to('administrator.php');
 }

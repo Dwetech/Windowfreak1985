@@ -40,7 +40,7 @@ $form = new Form();
                     <h2 class="" style="font-size:26px; line-height:30px;">Add Agency</h2>
                     <div class="clearfix"></div>
                     <div id="reg">
-                        <form action="<?php echo WEBSITE_URL; ?>admin/user/add_agency_action.php" method="POST">
+                        <form action="<?php echo WEBSITE_URL; ?>admin/user/action_add_agency.php" method="POST">
                             <input name="name" value="<?php echo $form->value('name'); ?>" class="form-control inputone" type="text" placeholder="AGENCY NAME"/>
                             <input name="contact" value="<?php echo $form->value('contact'); ?>" class="form-control" type="text" placeholder="PRIMARY CONTACT"/>
                             <input name="email" value="<?php echo $form->value('email'); ?>" class="form-control" type="text" placeholder="AGENCY Email"/>

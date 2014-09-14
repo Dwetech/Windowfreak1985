@@ -4,25 +4,23 @@ $session->loginRequired('admin');
 
 $Form = new Form();
 
-if( !isset($_GET['id']) || empty($_GET['id']) ) {
-    $Form->setError('error','No user ID found!');
+if (!isset($_GET['id']) || empty($_GET['id'])) {
+    $Form->setError('error', 'No user ID found!');
     $Form->return_msg_to('user.php');
 }
 
 
 $id = cleanData($_GET['id']);
 
-$user_query = mysql_query("SELECT * FROM ".TBL_USER." WHERE id = '".$id."' LIMIT 1");
+$user_query = mysql_query("SELECT * FROM " . TBL_USER . " WHERE id = '" . $id . "' LIMIT 1");
 
-if( mysql_num_rows($user_query) < 1 ) {
-    $Form->setError('error','No user found with given ID!');
+if (mysql_num_rows($user_query) < 1) {
+    $Form->setError('error', 'No user found with given ID!');
     $Form->return_msg_to('user.php');
 }
 
 
 $user_data = mysql_fetch_assoc($user_query);
-
-
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -43,7 +41,7 @@ $user_data = mysql_fetch_assoc($user_query);
     </head>
 
     <body>
-        
+
         <?php
         include ROOT_DIR . 'include/header.php';
 
@@ -61,48 +59,45 @@ $user_data = mysql_fetch_assoc($user_query);
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <h2 class="" style="font-size:26px; line-height:30px;">Edit User</h2>
                     <div class="clearfix"></div>
-                    <?php echo $Form->error('error','alert alert-danger') ?>
+                    <?php echo $Form->error('error', 'alert alert-danger') ?>
                     <div id="reg">
 
                         <form action="action_edit_user.php" method="post">
-                            <input name="first_name" class="form-control inputone" type="text" placeholder="FIRSTNAME" value="<?php echo $Form->value('first_name',$user_data['first_name']) ?>">
-                            <input name="last_name" class="form-control" type="text" placeholder="LASTNAME" value="<?php echo $Form->value('last_name',$user_data['last_name']) ?>">
-                            <input name="email" class="form-control" type="text" placeholder="Email" value="<?php echo $Form->value('email',$user_data['email']) ?>">
-                            <input name="password" class="form-control" type="text" placeholder="PASSWORD" value="<?php echo $Form->value('password',$user_data['password']) ?>">
-                            <input name="phone" class="form-control" type="text" placeholder="PHONE NUMBER" value="<?php echo $Form->value('phone',$user_data['phone_no']) ?>">
+                            <input name="first_name" class="form-control inputone" type="text" placeholder="FIRSTNAME" value="<?php echo $Form->value('first_name', $user_data['first_name']) ?>"/>
+                            <input name="last_name" class="form-control" type="text" placeholder="LASTNAME" value="<?php echo $Form->value('last_name', $user_data['last_name']) ?>"/>
+                            <input name="email" class="form-control" type="text" placeholder="Email" value="<?php echo $Form->value('email', $user_data['email']) ?>"/>
+                            <input name="password" class="form-control" type="text" placeholder="PASSWORD" value="<?php echo $Form->value('password', $user_data['password']) ?>"/>
+                            <input name="phone" class="form-control" type="text" placeholder="PHONE NUMBER" value="<?php echo $Form->value('phone', $user_data['phone_no']) ?>"/>
 
                             <select name="agency" class="form-control" id="agency">
                                 <?php
-                                $agency_query = mysql_query("SELECT * FROM ".TBL_AGENCY."");
+                                $agency_query = mysql_query("SELECT * FROM " . TBL_AGENCY . "");
 
-                                while( $agency = mysql_fetch_assoc($agency_query) ) {
+                                while ($agency = mysql_fetch_assoc($agency_query)) {
 
 
-                                    if( $agency['id'] == $Form->value('agency',$user_data['agency_id']) ) {
+                                    if ($agency['id'] == $Form->value('agency', $user_data['agency_id'])) {
                                         $selected = 'selected="selected"';
                                     } else {
                                         $selected = '';
                                     }
-
-
                                     ?>
                                     <option value="<?php echo $agency['id'] ?>" <?php echo $selected ?>><?php echo $agency['agency_name'] ?></option>
                                     <?php
                                 }
-
                                 ?>
                             </select>
                             <input type="hidden" name="user_id" value="<?php echo $user_data['id'] ?>" />
-                            <input type="submit" value="EDIT" class="form-control btn">
+                            <input type="submit" value="EDIT" class="form-control btn"/>
                         </form>
-                                                    <div class="clearfix"></div>
-                                                    </div>
-                                                    </div>
-                                                    </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
 
 
-                                                    </div>
+        </div>
 
-                                                    <!--table lay out div end-->
-                                                    </body>
-                                                    </html>
+        <!--table lay out div end-->
+    </body>
+</html>
