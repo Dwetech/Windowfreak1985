@@ -5,13 +5,13 @@ $session->loginRequired('admin', false);
 $form = new Form();
 
 
+if (!isset($_POST['starter_id'])) {
+
+    $form->setError('starter_error', 'Please select a starter!');
+    $form->return_msg_to('starters.php');
+}
+
 if (isset($_POST['delete_starter']) && $_POST['delete_starter'] == 'DELETE') {
-
-    if (!isset($_POST['starter_id'])) {
-
-        $form->setError('starter_error', 'Please select a starter!');
-        $form->return_msg_to('starters.php');
-    }
 
 
     $starter_id = $_POST['starter_id'];

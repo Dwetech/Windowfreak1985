@@ -6,6 +6,13 @@ $session->loginRequired('admin', false);
 
 $Form = new Form();
 
+
+if (!isset($_POST['id'])) {
+
+    $form->setError('error', 'Please select a admin!');
+    $Form->return_msg_to('administrator.php');
+}
+
 if (isset($_POST['delete_admin']) && $_POST['delete_admin'] == 'DELETE') {
 
 
