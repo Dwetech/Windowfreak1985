@@ -33,8 +33,9 @@ if( !isset( $_POST['submit'] )) {
     } else {
 
 
-//        save Image
-        $Upload->saveImage();
+
+//      save Image
+        $Upload->save_file();
 
         $file_name = $Upload->basename;
         $description = cleanData($_POST['description']);
