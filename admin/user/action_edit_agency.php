@@ -9,9 +9,6 @@ $session->loginRequired('admin',false);
 $Form = new Form();
 
 
-echo '<pre>';
-print_r($_POST);
-
 //Agency ID
 if( !isset($_POST['agency_id']) || empty($_POST['agency_id']) ) {
     
