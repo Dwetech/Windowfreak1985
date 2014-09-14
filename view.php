@@ -1,5 +1,6 @@
 <?php
 include 'core.php';
+$session->loginRequired('user');
 $Form = new Form();
 
 $starter = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_STARTER . ' ORDER BY RAND() LIMIT 1'));
@@ -74,8 +75,8 @@ $starter = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_STARTER . ' ORDE
                 <?php echo $Form->error('leadsError','alert alert-danger') ?>
                 <?php echo $Form->error('success','alert alert-success') ?>
                 <form action="<?php echo WEBSITE_URL ?>action_new_leads.php" method="post">
-                    <input name="first_name" value="<?php echo $Form->value('first_name') ?>" class="form-control1 inputone1" type="text" placeholder="FIRSTNAME">
-                    <input name="last_name" value="<?php echo $Form->value('last_name') ?>" class="form-control1" type="text" placeholder="LASTNAME">
+                    <input name="first_name" class="form-control1 inputone1" type="text" placeholder="FIRSTNAME">
+                    <input name="last_name" class="form-control1" type="text" placeholder="LASTNAME">
                     <select name="lead_result" class="form-control1">
                         <option value="">Lead Result</option>
                         <option value="Y">Yes</option>
@@ -157,14 +158,14 @@ $starter = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_STARTER . ' ORDE
 
 
     <?php
-    $today_yes = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='Y' AND DATE(`create_date`) = CURDATE()" ));
-    $today_no = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='N' AND DATE(`create_date`) = CURDATE()" ));
+    $today_yes = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='Y' AND user_id=".$_SESSION['user_id']." AND DATE(`create_date`) = CURDATE()" ));
+    $today_no = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='N' AND user_id=".$_SESSION['user_id']." AND DATE(`create_date`) = CURDATE()" ));
 
-    $week_yes = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='Y' AND YEARWEEK(`create_date`) = YEARWEEK(NOW())" ));
-    $week_no = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='N' AND YEARWEEK(`create_date`) = YEARWEEK(NOW())" ));
+    $week_yes = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='Y' AND user_id=".$_SESSION['user_id']." AND YEARWEEK(`create_date`) = YEARWEEK(NOW())" ));
+    $week_no = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='N' AND user_id=".$_SESSION['user_id']." AND YEARWEEK(`create_date`) = YEARWEEK(NOW())" ));
 
-    $month_yes = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='Y' AND MONTH(`create_date`) = MONTH(NOW())" ));
-    $month_no = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='N' AND MONTH(`create_date`) = MONTH(NOW())" ));
+    $month_yes = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='Y' AND user_id=".$_SESSION['user_id']." AND MONTH(`create_date`) = MONTH(NOW())" ));
+    $month_no = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM ".TBL_LEADS." WHERE lead_result='N' AND user_id=".$_SESSION['user_id']." AND MONTH(`create_date`) = MONTH(NOW())" ));
 
     ?>
 
