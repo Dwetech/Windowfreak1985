@@ -39,7 +39,7 @@ $Form = new Form();
 
                         <ul class="editdelete">
                             <li><input type="submit" name="edit_user" value="EDIT"/></li>
-                            <li><input onclick="return conform('Are you sure you want to delete this user?');" type="submit" name="delete_user" value="DELETE"/></li>
+                            <li><input onclick="return confirm('Are you sure you want to delete this user?');" type="submit" name="delete_user" value="DELETE"/></li>
                         </ul>
 
                     </div>
