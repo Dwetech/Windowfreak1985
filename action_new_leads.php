@@ -44,6 +44,7 @@ if( !isset( $_POST['submit'] )) {
         $notes = cleanData($_POST['notes']);
 
         $leadAdd = insertQuery(TBL_LEADS, array(
+            'user_id' => $_SESSION['user_id'],
             'first_name' => $first_name,
             'last_name' => $last_name,
             'lead_result' => $lead_result,
