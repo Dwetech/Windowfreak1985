@@ -18,6 +18,8 @@ $form = new Form();
         <?php
         include ROOT_DIR . 'include/head.php';
         ?>
+        <script type="text/javascript" src="<?php echo JS; ?>/jquery.min.js"></script>
+        <script type="text/javascript" src="<?php echo JS; ?>/script.js"></script>
     </head>
 
     <body>
@@ -37,8 +39,8 @@ $form = new Form();
 
             <div style="margin-top:20px;">
                 <?php
-                echo $form->error('agency_error', 'alert alert-danger');
-                echo $form->error('agency_success', 'alert alert-success');
+                echo $form->error('agency_error', 'alert alert-danger alert-dismissible');
+                echo $form->error('agency_success', 'alert-success alert-dismissible');
                 ?>
 
 

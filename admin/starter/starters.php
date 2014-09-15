@@ -30,6 +30,8 @@ $data = mysql_query($sql);
         <?php
         include ROOT_DIR . 'include/head.php';
         ?>
+        <script type="text/javascript" src="<?php echo JS; ?>/jquery.min.js"></script>
+        <script type="text/javascript" src="<?php echo JS; ?>/script.js"></script>
     </head>
 
     <body>
@@ -41,8 +43,8 @@ $data = mysql_query($sql);
 
         <!--table lay out div-->
         <div class="container">
-            <?php echo $form->error('starter_error', 'alert alert-danger'); ?>
-            <?php echo $form->error('starter_success', 'alert alert-success'); ?>
+            <?php echo $form->error('starter_error', 'alert alert-danger alert-dismissible'); ?>
+            <?php echo $form->error('starter_success', 'alert-success alert-dismissible'); ?>
 
             <form action="edit_action.php" method="POST">
                 <div class="row topmargin">

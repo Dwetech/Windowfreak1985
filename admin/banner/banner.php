@@ -18,6 +18,8 @@ $Form = new Form();
         <?php
         include ROOT_DIR . 'include/head.php';
         ?>
+        <script type="text/javascript" src="<?php echo JS; ?>/jquery.min.js"></script>
+        <script type="text/javascript" src="<?php echo JS; ?>/script.js"></script>
     </head>
 
     <body>

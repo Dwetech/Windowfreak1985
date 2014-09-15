@@ -16,10 +16,9 @@ $Form = new Form();
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Life Department</title>
-        <?php
-        include ROOT_DIR . 'include/head.php';
-        ?>
+        <?php include ROOT_DIR . 'include/head.php'; ?>
         <script type="text/javascript" src="<?php echo JS; ?>/jquery.min.js"></script>
+        <script type="text/javascript" src="<?php echo JS; ?>/script.js"></script>
     </head>
 
     <body>
@@ -32,8 +31,8 @@ $Form = new Form();
 
         <!--table lay out div-->
         <div class="container">
-            <?php echo $Form->error('error', 'alert alert-danger') ?>
-            <?php echo $Form->error('success', 'alert alert-success') ?>
+            <?php echo $Form->error('error', 'alert alert-danger alert-dismissible') ?>
+            <?php echo $Form->error('success', 'alert alert-success alert-dismissible') ?>
             <form action="manage_admin_action.php" method="POST">
                 <div class="row topmargin">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
