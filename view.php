@@ -30,6 +30,7 @@ $starter = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_STARTER . ' ORDE
         <link rel="stylesheet" href="<?php echo CSS; ?>/style.css" type="text/css"/>
         <script type="text/javascript" src="<?php echo JS; ?>/jquery.min.js"></script>
         <script type="text/javascript" src="<?php echo JS; ?>/script.js"></script>
+        <script type="text/javascript" src="<?php echo JS; ?>/bootstrap.js"></script>
     </head>
 
     <body>
@@ -82,11 +83,17 @@ $starter = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_STARTER . ' ORDE
                         <?php echo $Form->error('error', 'alert alert-danger alert-dismissible') ?>
                         <?php echo $Form->error('leadsError', 'alert alert-danger alert-dismissible') ?>
 
-                        <?php if(isset($_GET['leads'])){
-                            if($_GET['leads'] == "success"){ ?>
-                                <p class="alert alert-success">A new lead has been submitted successfully</p>
-                            <?php }
-                        } ?>
+                        <?php
+                        if (isset($_GET['leads'])) {
+                            if ($_GET['leads'] == "success") {
+                                ?>
+                                <p class="alert alert-success">
+                                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    A new lead has been submitted successfully</p>
+                                <?php
+                            }
+                        }
+                        ?>
 
                         <form action="<?php echo WEBSITE_URL ?>action_new_leads.php" method="post">
                             <input name="first_name" value="<?php echo $Form->value('first_name') ?>" class="form-control1 inputone1" type="text" placeholder="FIRSTNAME">
@@ -106,8 +113,8 @@ $starter = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_STARTER . ' ORDE
                                         <?php for ($i = 1; $i < 8; $i++) { ?>
                                             <option <?php echo $Form->value('call_time') == timeWatch($i) ? 'selected' : ''; ?>  value="<?php echo timeWatch($i) ?>"><?php echo timeWatch($i) ?></option>
                                             <option <?php echo $Form->value('call_time') == timeWatch($i + 0.5) ? 'selected' : ''; ?>  value="<?php echo timeWatch($i + 0.5) ?>"><?php echo timeWatch($i + 0.5) ?></option>
-<?php }
-?>
+                                        <?php }
+                                        ?>
                                     </select>
                                     <input name="phone_no" value="<?php echo $Form->value('phone_no') ?>" class="form-control1" type="text" placeholder="PHONE NUMBER">
                                         <input name="notes" value="<?php echo $Form->value('notes') ?>" class="form-control1" type="text" placeholder="NOTES">
@@ -136,20 +143,20 @@ $starter = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_STARTER . ' ORDE
                                                                         <th>date/time</th>
 
                                                                     </tr>
-<?php
-$count = mysql_fetch_array(mysql_query('SELECT COUNT(*) as total FROM '.TBL_LEADS.' WHERE user_id=' . $_SESSION['user_id']));
-$leadsSQL = 'SELECT * FROM ' . TBL_LEADS.' WHERE user_id=' . $_SESSION['user_id'];
-$Pagination = new Pagination();
-$Pagination->limit = 30;
-$Pagination->pageParam = 'page';
-$Pagination->execute($count['total']);
-$leadsSQL .= $Pagination->getLimitStr();
+                                                                    <?php
+                                                                    $count = mysql_fetch_array(mysql_query('SELECT COUNT(*) as total FROM ' . TBL_LEADS . ' WHERE user_id=' . $_SESSION['user_id']));
+                                                                    $leadsSQL = 'SELECT * FROM ' . TBL_LEADS . ' WHERE user_id=' . $_SESSION['user_id'];
+                                                                    $Pagination = new Pagination();
+                                                                    $Pagination->limit = 30;
+                                                                    $Pagination->pageParam = 'page';
+                                                                    $Pagination->execute($count['total']);
+                                                                    $leadsSQL .= $Pagination->getLimitStr();
 
 
-$leadsQuery = mysql_query($leadsSQL);
+                                                                    $leadsQuery = mysql_query($leadsSQL);
 
-while ($leads = mysql_fetch_assoc($leadsQuery)) {
-    ?>
+                                                                    while ($leads = mysql_fetch_assoc($leadsQuery)) {
+                                                                        ?>
                                                                         <tr>
                                                                             <td><?php echo $leads['first_name'] ?></td>
                                                                             <td><?php echo $leads['last_name'] ?></td>
@@ -159,26 +166,26 @@ while ($leads = mysql_fetch_assoc($leadsQuery)) {
                                                                             <td style="text-align:left;"><?php echo $leads['create_date'] ?></td>
 
                                                                         </tr>
-<?php } ?>
+                                                                    <?php } ?>
                                                                 </table>
                                                             </div>
 
-<?php
-echo $Pagination->showPagination();
-?>
+                                                            <?php
+                                                            echo $Pagination->showPagination();
+                                                            ?>
                                                         </div>
 
 
-<?php
-$today_yes = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM " . TBL_LEADS . " WHERE lead_result='Y' AND user_id=" . $_SESSION['user_id'] . " AND DATE(`create_date`) = CURDATE()"));
-$today_no = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM " . TBL_LEADS . " WHERE lead_result='N' AND user_id=" . $_SESSION['user_id'] . " AND DATE(`create_date`) = CURDATE()"));
+                                                        <?php
+                                                        $today_yes = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM " . TBL_LEADS . " WHERE lead_result='Y' AND user_id=" . $_SESSION['user_id'] . " AND DATE(`create_date`) = CURDATE()"));
+                                                        $today_no = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM " . TBL_LEADS . " WHERE lead_result='N' AND user_id=" . $_SESSION['user_id'] . " AND DATE(`create_date`) = CURDATE()"));
 
-$week_yes = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM " . TBL_LEADS . " WHERE lead_result='Y' AND user_id=" . $_SESSION['user_id'] . " AND YEARWEEK(`create_date`) = YEARWEEK(NOW())"));
-$week_no = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM " . TBL_LEADS . " WHERE lead_result='N' AND user_id=" . $_SESSION['user_id'] . " AND YEARWEEK(`create_date`) = YEARWEEK(NOW())"));
+                                                        $week_yes = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM " . TBL_LEADS . " WHERE lead_result='Y' AND user_id=" . $_SESSION['user_id'] . " AND YEARWEEK(`create_date`) = YEARWEEK(NOW())"));
+                                                        $week_no = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM " . TBL_LEADS . " WHERE lead_result='N' AND user_id=" . $_SESSION['user_id'] . " AND YEARWEEK(`create_date`) = YEARWEEK(NOW())"));
 
-$month_yes = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM " . TBL_LEADS . " WHERE lead_result='Y' AND user_id=" . $_SESSION['user_id'] . " AND MONTH(`create_date`) = MONTH(NOW())"));
-$month_no = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM " . TBL_LEADS . " WHERE lead_result='N' AND user_id=" . $_SESSION['user_id'] . " AND MONTH(`create_date`) = MONTH(NOW())"));
-?>
+                                                        $month_yes = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM " . TBL_LEADS . " WHERE lead_result='Y' AND user_id=" . $_SESSION['user_id'] . " AND MONTH(`create_date`) = MONTH(NOW())"));
+                                                        $month_no = mysql_fetch_assoc(mysql_query("SELECT COUNT(*) as leads FROM " . TBL_LEADS . " WHERE lead_result='N' AND user_id=" . $_SESSION['user_id'] . " AND MONTH(`create_date`) = MONTH(NOW())"));
+                                                        ?>
 
                                                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                                                             <div id="summ" class="summary">

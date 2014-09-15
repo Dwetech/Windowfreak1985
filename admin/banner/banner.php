@@ -20,6 +20,7 @@ $Form = new Form();
         ?>
         <script type="text/javascript" src="<?php echo JS; ?>/jquery.min.js"></script>
         <script type="text/javascript" src="<?php echo JS; ?>/script.js"></script>
+        <script type="text/javascript" src="<?php echo JS; ?>/bootstrap.js"></script>
     </head>
 
     <body>
@@ -32,12 +33,17 @@ $Form = new Form();
 
         <!--table lay out div-->
         <div class="container">
-            
-            <?php echo $Form->error('success', 'alert alert-success') ?>
-            <?php echo $Form->error('error', 'alert alert-danger') ?>
-            
+
+
             <form action="action_delete_banner.php" method="post">
+
                 <div class="row topmargin">
+
+                    
+                    <?php echo $Form->error('success', 'alert alert-success') ?>
+                    <?php echo $Form->error('error', 'alert alert-danger') ?>
+
+                    
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <a href="add-banner.php" class="addmin">Upload a banner</a>
                     </div>

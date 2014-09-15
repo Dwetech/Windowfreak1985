@@ -62,7 +62,7 @@ class Form
     */
    function error($field, $class = 'error'){
       if(array_key_exists($field,$this->errors)){
-         return '<div class="'.$class.'">'.$this->errors[$field].'</div>';
+         return '<div class="'.$class.'"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>'.$this->errors[$field].'</div>';
       }else{
          return "";
       }

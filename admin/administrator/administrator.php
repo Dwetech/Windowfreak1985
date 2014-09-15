@@ -19,6 +19,7 @@ $Form = new Form();
         <?php include ROOT_DIR . 'include/head.php'; ?>
         <script type="text/javascript" src="<?php echo JS; ?>/jquery.min.js"></script>
         <script type="text/javascript" src="<?php echo JS; ?>/script.js"></script>
+        <script type="text/javascript" src="<?php echo JS; ?>/bootstrap.js"></script>
     </head>
 
     <body>
@@ -31,10 +32,14 @@ $Form = new Form();
 
         <!--table lay out div-->
         <div class="container">
-            <?php echo $Form->error('error', 'alert alert-danger alert-dismissible') ?>
-            <?php echo $Form->error('success', 'alert alert-success alert-dismissible') ?>
             <form action="manage_admin_action.php" method="POST">
                 <div class="row topmargin">
+                    
+                    
+                    <?php echo $Form->error('error', 'alert alert-danger alert-dismissible') ?>
+                    <?php echo $Form->error('success', 'alert alert-success alert-dismissible') ?>
+                    
+                    
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <a href="<?php echo WEBSITE_URL; ?>admin/administrator/add-a-administrator.php">add an administrator</a>
                     </div>
@@ -125,11 +130,11 @@ $Form = new Form();
                 url: 'action_update_administrator.php?id=' + id + '&receive_email=' + receive,
                 type: 'GET',
                 success: function (rslt) {
-                    
+
                     if (rslt == false || rslt == 0) {
                         alert('Update failed! Please try again.');
                     }
-                    
+
                     window.location.href = 'administrator.php';
                 }
             });

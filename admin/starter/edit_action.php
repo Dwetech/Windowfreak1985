@@ -54,6 +54,13 @@ if (isset($_POST['delete_starter']) && $_POST['delete_starter'] == 'DELETE') {
     } else {
 
         $starter = cleanData($_POST['starter']);
+        
+        if($starter == '') {
+            
+            $form->setError('starter_error', 'You cannot create empty conversation!');
+            $form->return_msg_to('edit-starter.php?id=' . $id);
+        }
+        
         $result = mysql_query('UPDATE starter SET `starter`="' . $starter . '" WHERE id=' . $id);
         if (!$result) {
 
