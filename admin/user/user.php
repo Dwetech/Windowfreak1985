@@ -72,7 +72,7 @@ $Form = new Form();
 
                             <?php
                             $user_count = mysql_fetch_array(mysql_query("SELECT COUNT(*) as total FROM " . TBL_USER . " WHERE type='user'"));
-                            $user_sql = "SELECT u.*, a.agency_name FROM " . TBL_USER . " u LEFT JOIN agency a ON (u.agency_id=a.id) WHERE u.type='user'";
+                            $user_sql = "SELECT u.*, a.agency_name FROM " . TBL_USER . " u LEFT JOIN agency a ON (u.agency_id=a.id) WHERE u.type='user' ORDER BY u.id DESC";
 
                             $userPagination = new Pagination();
 
