@@ -44,11 +44,14 @@ $data = mysql_query($sql);
 
         <!--table lay out div-->
         <div class="container">
-            <?php echo $form->error('starter_error', 'alert alert-danger alert-dismissible'); ?>
-            <?php echo $form->error('starter_success', 'alert-success alert-dismissible'); ?>
 
             <form action="edit_action.php" method="POST">
                 <div class="row topmargin">
+                    
+                    <?php echo $form->error('starter_error', 'alert alert-danger alert-dismissible'); ?>
+                    <?php echo $form->error('starter_success', 'alert alert-success alert-dismissible'); ?>
+
+
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <p class="addmin"><a href="add-starter.php">add a starter</a></p>
                     </div>
