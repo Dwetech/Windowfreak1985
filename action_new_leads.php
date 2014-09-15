@@ -15,13 +15,13 @@ if( !isset( $_POST['submit'] )) {
 } else{
 
     if( !isset( $_POST['first_name'] ) || empty($_POST['first_name']) ) {
-        $Form->setError('error','Fill The form perfectly.');
+        $Form->setError('error','Please write your first name.');
     }
     if( !isset( $_POST['last_name'] ) || empty($_POST['last_name']) ) {
-        $Form->setError('error','Fill The form perfectly.');
+        $Form->setError('error','Please write your last name.');
     }
     if( !isset( $_POST['lead_result'] ) || empty($_POST['lead_result']) ) {
-        $Form->setError('error','Fill The form perfectly.');
+        $Form->setError('error','Please select a lead result.');
     }
 
     if($_POST['lead_result'] == 'Y'){
