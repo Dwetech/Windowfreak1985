@@ -46,6 +46,8 @@ $agency_data = mysql_fetch_assoc($agency_query);
         <!-- style sheet css -->
         <link href="<?php echo CSS; ?>/font-awesome.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="<?php echo WEBSITE_URL ?>style.css" type="text/css"/>
+        <script type="text/javascript" src="<?php echo JS; ?>/jquery.min.js"></script>
+        <script type="text/javascript" src="<?php echo JS; ?>/script.js"></script>
     </head>
 
     <body>
@@ -67,7 +69,7 @@ $agency_data = mysql_fetch_assoc($agency_query);
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <h2 class="" style="font-size:26px; line-height:30px;">Edit Agency</h2>
                     <div class="clearfix"></div>
-                    <?php echo $Form->error('error', 'alert alert-danger') ?>
+                    <?php echo $Form->error('error', 'alert alert-danger alert-dismissible') ?>
                     <div id="reg">
 
                         <form action="action_edit_agency.php" method="post">
