@@ -75,8 +75,7 @@ if( !isset( $_POST['submit'] )) {
             }
 
 
-            $Form->setError('success','New Leads added successfully');
-            $Form->return_msg_to('view.php');
+            redirect('view.php?leads=success');
         }
 
     }
