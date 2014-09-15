@@ -24,17 +24,7 @@ $banner = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_BANNER . ' ORDER 
     </head>
 
     <body>
-<<<<<<< HEAD
-        <!--header div-->
-        <div class="header-bg blue">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 centeralign">
-                        <a href="#">
-                            <img src="img/logo.png" alt="Life Department" />
-                        </a>
-                    </div>
-=======
+
 	<!--header div-->
 	<div class="header-bg blue">
     	<div class="container">
@@ -47,7 +37,6 @@ $banner = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_BANNER . ' ORDER 
             	<div class="col-lg-7 col-md-7 col-sm-7">
                 	<a class="login_button" href="login.php">Login</a>
                 </div>
->>>>>>> e7138dd582c6b8c4a8305efd50c632c30c47dc81
                 </div>
             </div>
         </div>
