@@ -131,8 +131,8 @@ $starter = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_STARTER . ' ORDE
 
                                                                     </tr>
 <?php
-$count = mysql_fetch_array(mysql_query('SELECT COUNT(*) as total FROM leads WHERE user_id=' . $_SESSION['user_id']));
-$leadsSQL = 'SELECT * FROM ' . TBL_LEADS;
+$count = mysql_fetch_array(mysql_query('SELECT COUNT(*) as total FROM '.TBL_LEADS.' WHERE user_id=' . $_SESSION['user_id']));
+$leadsSQL = 'SELECT * FROM ' . TBL_LEADS.' WHERE user_id=' . $_SESSION['user_id'];
 $Pagination = new Pagination();
 $Pagination->limit = 30;
 $Pagination->pageParam = 'page';
