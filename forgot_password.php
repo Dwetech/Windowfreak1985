@@ -32,7 +32,7 @@ $banner = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_BANNER . ' ORDER 
                     </a>
                 </div>
             	<div class="col-lg-7 col-md-7 col-sm-7">
-                	<a style="color: #ffffff;font-size: 16px" class="pull-right" href="login.php">Login</a>
+                	<a class="login_button" href="login.php">Login</a>
                 </div>
                 </div>
             </div>

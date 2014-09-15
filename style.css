@@ -208,3 +208,17 @@ body{}
 .headlogin{ float:none;}
 .headlogin li{ display:inline-block; float:none; }
 }
+
+.login_button{
+    background: none repeat scroll 0 0 #6ec5cc;
+    color: #ffffff;
+    font-size: 15px;
+    margin: 10px 0 0;
+    padding: 5px 18px;
+    float: right;
+}
+.login_button:hover{
+    background: none repeat scroll 0 0 #63b2b8;
+    text-decoration: none;
+    color: #ffffff;
+}
