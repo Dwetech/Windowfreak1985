@@ -15,7 +15,7 @@ $banner = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_BANNER . ' ORDER 
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Life Department - Login</title>
+        <title>Life Department - Forgot Password</title>
         <?php
         include ROOT_DIR . 'include/head.php';
         ?>
