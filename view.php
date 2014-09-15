@@ -30,6 +30,7 @@ $starter = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_STARTER . ' ORDE
         <link rel="stylesheet" href="<?php echo CSS; ?>/style.css" type="text/css"/>
         <script type="text/javascript" src="<?php echo JS; ?>/jquery.min.js"></script>
         <script type="text/javascript" src="<?php echo JS; ?>/script.js"></script>
+        <script type="text/javascript" src="<?php echo JS; ?>/bootstrap.js"></script>
     </head>
 
     <body>

@@ -6,7 +6,7 @@
 $(document).ready(function () {
 
     window.setTimeout(function () {
-        $(".alert-danger").fadeTo(1500, 0).slideUp(500, function () {
+        $(".alert-danger, .alert-success").fadeTo(1500, 0).slideUp(500, function () {
             $(this).remove();
         });
     }, 5000);

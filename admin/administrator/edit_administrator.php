@@ -48,6 +48,7 @@ $admin_data = mysql_fetch_assoc($admin_query);
         <link rel="stylesheet" href="<?php echo WEBSITE_URL ?>style.css" type="text/css"/>
         <script type="text/javascript" src="<?php echo JS; ?>/jquery.min.js"></script>
         <script type="text/javascript" src="<?php echo JS; ?>/script.js"></script>
+        <script type="text/javascript" src="<?php echo JS; ?>/bootstrap.js"></script>
     </head>
 
     <body>

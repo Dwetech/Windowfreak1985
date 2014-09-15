@@ -20,6 +20,7 @@ $Form = new Form();
         ?>
         <script type="text/javascript" src="<?php echo JS; ?>/jquery.min.js"></script>
         <script type="text/javascript" src="<?php echo JS; ?>/script.js"></script>
+        <script type="text/javascript" src="<?php echo JS; ?>/bootstrap.js"></script>
     </head>
 
     <body>
@@ -34,7 +35,7 @@ $Form = new Form();
         <div class="container">
             <div class="row topmargin">
                 <div class="col-md-12">
-                    <?php echo $Form->error('success', 'alert-success alert-dismissible') ?>
+                    <?php echo $Form->error('success', 'alert alert-success alert-dismissible') ?>
                     <?php echo $Form->error('error', 'alert alert-danger alert-dismissible') ?>
                 </div>
             </div>
