@@ -31,20 +31,22 @@ $banner = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_BANNER . ' ORDER 
                     	<img src="img/logo.png" alt="Life Department" />
                     </a>
                 </div>
+            	<div class="col-lg-7 col-md-7 col-sm-7">
+                	<a style="color: #ffffff;font-size: 16px" class="pull-right" href="login.php">Login</a>
+                </div>
                 </div>
             </div>
         </div>
         <!--header div end-->
 
         <div class="container" style="margin-top:50px;">
-            <?php if($Form->error('email','alert alert-danger')){
-                echo $Form->error('email','alert alert-danger');
+            <?php if($Form->error('success','')){
+                echo $Form->error('success','alert alert-success');
             } else { ?>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-md-offset-4 text-center visittext">
                     <h4>Forgot Password</h4>
 
                     <form action="action_forgot_password.php">
-
                         <?php echo $Form->error('email','alert alert-danger') ?>
                         <input name="email" style="width: 90%;margin: 5px 5%;padding: 7px;text-align: center" type="email" placeholder="Email Address"/>
                         <input name="submit" style="width: 90%;margin: 0 5%;padding: 7px;background: #1c8c7e;color: #ffffff" type="submit" value="Send Mail"/>
