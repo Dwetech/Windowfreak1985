@@ -8,4 +8,5 @@
 require('core.php');
 
 $logout = $session->logout();
+
 redirect('login.php');

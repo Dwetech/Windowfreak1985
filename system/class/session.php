@@ -20,6 +20,7 @@ class Session
     {
 
         session_start();
+
         if ( isset($_SESSION['timeout']) )
             {
                 $this->time = $_SESSION['timeout'];
@@ -102,8 +103,8 @@ class Session
 
             $cookie_rand = $this->updateUserCookie($user['id']);
 
-            setcookie ("cookid", $user['id'], time()+COOKIE_EXPIRE);
-            setcookie ("cookrand", $cookie_rand, time()+COOKIE_EXPIRE);
+            setcookie ("cookid", $user['id'], time()+COOKIE_EXPIRE, COOKIE_PATH);
+            setcookie ("cookrand", $cookie_rand, time()+COOKIE_EXPIRE, COOKIE_PATH);
 
         }
 
@@ -318,8 +319,8 @@ class Session
         unset( $_SESSION['user_email'] );
         unset( $_SESSION['loginType'] );
 
-        setcookie ("cookid", "", time()-COOKIE_EXPIRE);
-        setcookie ("cookrand", "", time()-COOKIE_EXPIRE);
+        setcookie ("cookid", "", time()-COOKIE_EXPIRE, COOKIE_PATH);
+        setcookie ("cookrand", "", time()-COOKIE_EXPIRE, COOKIE_PATH);
 
     }
                      
@@ -329,12 +330,11 @@ class Session
         
         unset( $_SESSION['user_id'] );
         unset( $_SESSION['user_email'] );
+        unset( $_SESSION['loginType'] );
         unset( $_SESSION['first_name'] );
         unset( $_SESSION['last_name'] );
-        unset( $_SESSION['loginType'] );
-        setcookie ("cookid", "", time()-COOKIE_EXPIRE);
-        setcookie ("cookrand", "", time()-COOKIE_EXPIRE);
-              
+        setcookie ("cookid", "", time()-COOKIE_EXPIRE, COOKIE_PATH);
+        setcookie ("cookrand", "", time()-COOKIE_EXPIRE, COOKIE_PATH);
 
     }
             

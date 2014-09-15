@@ -82,7 +82,13 @@ $starter = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_STARTER . ' ORDE
 
                         <?php echo $Form->error('error', 'alert alert-danger alert-dismissible') ?>
                         <?php echo $Form->error('leadsError', 'alert alert-danger alert-dismissible') ?>
-                        <?php echo $Form->error('success', 'alert-success alert-dismissible') ?>
+
+                        <?php if(isset($_GET['leads'])){
+                            if($_GET['leads'] == "success"){ ?>
+                                <p class="alert alert-success">A new lead has been submitted successfully</p>
+                            <?php }
+                        } ?>
+
                         <form action="<?php echo WEBSITE_URL ?>action_new_leads.php" method="post">
                             <input name="first_name" value="<?php echo $Form->value('first_name') ?>" class="form-control1 inputone1" type="text" placeholder="FIRSTNAME">
                                 <input name="last_name" value="<?php echo $Form->value('last_name') ?>" class="form-control1" type="text" placeholder="LASTNAME">
@@ -132,8 +138,8 @@ $starter = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_STARTER . ' ORDE
 
                                                                     </tr>
 <?php
-$count = mysql_fetch_array(mysql_query('SELECT COUNT(*) as total FROM leads WHERE user_id=' . $_SESSION['user_id']));
-$leadsSQL = 'SELECT * FROM ' . TBL_LEADS;
+$count = mysql_fetch_array(mysql_query('SELECT COUNT(*) as total FROM '.TBL_LEADS.' WHERE user_id=' . $_SESSION['user_id']));
+$leadsSQL = 'SELECT * FROM ' . TBL_LEADS.' WHERE user_id=' . $_SESSION['user_id'];
 $Pagination = new Pagination();
 $Pagination->limit = 30;
 $Pagination->pageParam = 'page';

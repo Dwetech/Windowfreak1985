@@ -8,6 +8,14 @@
 require('core.php');
 $Form = new Form();
 
+if( $session->checklogin() ) {
+    if( $_SESSION['loginType'] == 'admin' ){
+        redirect('admin/dashboard.php');
+    } else {
+        redirect('view.php');
+    }
+}
+
 $banner = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_BANNER . ' ORDER BY RAND() LIMIT 1'));
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
