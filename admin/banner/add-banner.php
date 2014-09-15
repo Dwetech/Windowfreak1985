@@ -57,20 +57,20 @@ $Form = new Form();
                         <?php echo $Form->error('success', 'alert-success alert-dismissible') ?>
                         <?php echo $Form->error('extension', 'alert alert-danger alert-dismissible') ?>
                         <form action="action_add_banner.php" method="post" enctype="multipart/form-data">
-                            <input name="file" type="file" style="position: inherit;float: left;padding: 5px;background: #1c8c7e;color: #ffffff">
-                                <input name="description" value="<?php echo $Form->value('description') ?>" type="text" placeholder="DESCRIPTION" style="position: inherit;float: left">
-                                    <input name="submit" type="submit" value="ADD" class="form-control btnnn" style="position: inherit;float: left">
-                                        </form>
+                            <input name="file" type="file" style="position: inherit;float: left;padding: 5px;background: #1c8c7e;color: #ffffff"/>
+                            <input name="description" value="<?php echo $Form->value('description') ?>" type="text" placeholder="DESCRIPTION" style="position: inherit;float: left"/>
+                            <input name="submit" type="submit" value="ADD" class="form-control btnnn" style="position: inherit;float: left"/>
+                        </form>
 
-                                        <div class="clearfix"></div>
+                        <div class="clearfix"></div>
 
-                                        </div>
-                                        </div>
-                                        </div>
+                    </div>
+                </div>
+            </div>
 
 
-                                        </div>
+        </div>
 
-                                        <!--table lay out div end-->
-                                        </body>
-                                        </html>
+        <!--table lay out div end-->
+    </body>
+</html>

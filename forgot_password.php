@@ -24,6 +24,7 @@ $banner = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_BANNER . ' ORDER 
     </head>
 
     <body>
+<<<<<<< HEAD
         <!--header div-->
         <div class="header-bg blue">
             <div class="container">
@@ -33,23 +34,47 @@ $banner = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_BANNER . ' ORDER 
                             <img src="img/logo.png" alt="Life Department" />
                         </a>
                     </div>
+=======
+	<!--header div-->
+	<div class="header-bg blue">
+    	<div class="container">
+        	<div class="row">
+            	<div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 centeralign">
+                	<a href="#">
+                    	<img src="img/logo.png" alt="Life Department" />
+                    </a>
+                </div>
+            	<div class="col-lg-7 col-md-7 col-sm-7">
+                	<a class="login_button" href="login.php">Login</a>
+                </div>
+>>>>>>> e7138dd582c6b8c4a8305efd50c632c30c47dc81
                 </div>
             </div>
         </div>
         <!--header div end-->
 
         <div class="container" style="margin-top:50px;">
+<<<<<<< HEAD
             <?php
             if ($Form->error('email', 'alert alert-danger alert-dismissible')) {
                 echo $Form->error('email', 'alert alert-danger alert-dismissible');
             } else {
                 ?>
+=======
+            <?php if($Form->error('success','')){
+                echo $Form->error('success','alert alert-success');
+            } else { ?>
+>>>>>>> e7138dd582c6b8c4a8305efd50c632c30c47dc81
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-md-offset-4 text-center visittext">
                     <h4>Forgot Password</h4>
 
                     <form action="action_forgot_password.php">
+<<<<<<< HEAD
 
     <?php echo $Form->error('email', 'alert alert-danger alert-dismissible') ?>
+=======
+                        <?php echo $Form->error('email','alert alert-danger') ?>
+>>>>>>> e7138dd582c6b8c4a8305efd50c632c30c47dc81
                         <input name="email" style="width: 90%;margin: 5px 5%;padding: 7px;text-align: center" type="email" placeholder="Email Address"/>
                         <input name="submit" style="width: 90%;margin: 0 5%;padding: 7px;background: #1c8c7e;color: #ffffff" type="submit" value="Send Mail"/>
                     </form>
