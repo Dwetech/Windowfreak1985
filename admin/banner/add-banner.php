@@ -52,7 +52,6 @@ include ROOT_DIR . 'include/menu.php';
             <div id="regg">
 
                 <?php echo $Form->error('error','alert alert-danger') ?>
-                <?php echo $Form->error('success','alert alert-success') ?>
                 <?php echo $Form->error('extension','alert alert-danger') ?>
                 <form action="action_add_banner.php" method="post" enctype="multipart/form-data">
                     <input name="file" type="file" style="position: inherit;float: left;padding: 5px;background: #1c8c7e;color: #ffffff">

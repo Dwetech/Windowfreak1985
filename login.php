@@ -36,7 +36,7 @@ $banner = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_BANNER . ' ORDER 
                     <form action="action_login.php" method="post">
 
                         <ul class="headlogin text-center headlogin1">
-                            <li><input type="text" name="email" value="" placeholder="email" class="emailtext" />
+                            <li><input type="email" name="email" value="<?php echo $Form->value('email') ?>" placeholder="email" class="emailtext" />
                             <p class="keep"><input type="checkbox" name="remember_me" value="1" class="cbox"/>Keep me logged in</p>
                             </li>
                             <li><input type="password" name="password" value="" placeholder="password" class="passtext" />

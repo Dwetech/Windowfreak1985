@@ -5,7 +5,9 @@
  * Date: 9/15/14
  * Time: 1:41 AM
  */
-include '../core.php';
+include '../../core.php';
+$session->loginRequired('admin');
+$Form = new Form();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -30,7 +32,7 @@ include '../core.php';
         <div class="container">
             <div class="row topmargin">
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <p class="addmin">upload a banner</p>
+                    <a href="add-banner.php" class="addmin">Upload a banner</a>
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <ul class="editdelete">
@@ -39,6 +41,7 @@ include '../core.php';
                 </div>
             </div>
 
+            <?php echo $Form->error('success','alert alert-success') ?>
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 admin-box">
                     <h2>Banners</h2>
@@ -50,96 +53,37 @@ include '../core.php';
                             <th>file name</th>
                             <th colspan="2">description</th>
                         </tr>
-                        <tr>
-                            <td>banner01.jpg</td>
-                            <td>cash 4 apps banner - 2014 promotion from DIL</td>
-                            <td class="text-center"><input type="checkbox" name="" value="" /></td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                            <td>&nbsp;</td>
-                        </tr>
+
+                        <?php
+                        $bannerQuery = mysql_query("SELECT * FROM ".TBL_BANNER);
+
+
+                        $count = mysql_fetch_array(mysql_query("SELECT COUNT(*) as total FROM ".TBL_BANNER)) ;
+                        $bannerSQL = 'SELECT * FROM ' . TBL_BANNER;
+                        $Pagination = new Pagination();
+                        $Pagination->limit = 30;
+                        $Pagination->pageParam  = 'page';
+                        $Pagination->execute($count['total']);
+                        $bannerSQL .= $Pagination->getLimitStr();
+
+
+                        $bannerQuery = mysql_query($bannerSQL);
+
+                        while($banner = mysql_fetch_assoc($bannerQuery)){
+                        ?>
+                            <tr>
+                                <td><?php echo $banner['file_name'] ?></td>
+                                <td><?php echo $banner['description'] ?></td>
+                                <td class="text-center"><input type="checkbox" name="" value="" /></td>
+                            </tr>
+
+                        <?php } ?>
                     </table>
                 </div>
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <ul class="pagebtn">
-                        <li><a href="#" class="activ">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">Next</a></li>
-                        <li><a href="#">Last</a></li>
-                    </ul>
-                </div>
+
+                <?php
+                echo $Pagination->showPagination();
+                ?>
             </div>
         </div>
         <!--table lay out div end-->

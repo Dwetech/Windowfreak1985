@@ -53,7 +53,7 @@ if( !isset( $_POST['submit'] )) {
             $Form->return_msg_to('add-banner.php');
         } else {
             $Form->setError('success','New Banner added successfully');
-            $Form->return_msg_to('add-banner.php');
+            $Form->return_msg_to('banner.php');
         }
 
     }
