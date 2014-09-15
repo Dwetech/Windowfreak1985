@@ -23,7 +23,7 @@ $Form = new Form();
     </head>
 
     <body>
-        
+
         <?php
         include ROOT_DIR . 'include/header.php';
 
@@ -32,61 +32,66 @@ $Form = new Form();
 
         <!--table lay out div-->
         <div class="container">
-            <div class="row topmargin">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <a href="add-banner.php" class="addmin">Upload a banner</a>
+            
+            <?php echo $Form->error('success', 'alert alert-success') ?>
+            <?php echo $Form->error('error', 'alert alert-danger') ?>
+            
+            <form action="action_delete_banner.php" method="post">
+                <div class="row topmargin">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <a href="add-banner.php" class="addmin">Upload a banner</a>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <ul class="editdelete">
+                            <li><input onclick="return confirm('Are you sure you want to delete this banner?')" type="submit" name="delete_banner" value="DELETE"/></li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <ul class="editdelete">
-                        <li><a href="#">delete</a></li>
-                    </ul>
-                </div>
-            </div>
 
-            <?php echo $Form->error('success','alert alert-success') ?>
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 admin-box">
-                    <h2>Banners</h2>
-                </div>
-                <div class="clearfix"></div>
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <tr>
-                            <th>file name</th>
-                            <th colspan="2">description</th>
-                        </tr>
-
-                        <?php
-                        $bannerQuery = mysql_query("SELECT * FROM ".TBL_BANNER);
-
-
-                        $count = mysql_fetch_array(mysql_query("SELECT COUNT(*) as total FROM ".TBL_BANNER)) ;
-                        $bannerSQL = 'SELECT * FROM ' . TBL_BANNER;
-                        $Pagination = new Pagination();
-                        $Pagination->limit = 30;
-                        $Pagination->pageParam  = 'page';
-                        $Pagination->execute($count['total']);
-                        $bannerSQL .= $Pagination->getLimitStr();
-
-
-                        $bannerQuery = mysql_query($bannerSQL);
-
-                        while($banner = mysql_fetch_assoc($bannerQuery)){
-                        ?>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 admin-box">
+                        <h2>Banners</h2>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
                             <tr>
-                                <td><?php echo $banner['file_name'] ?></td>
-                                <td><?php echo $banner['description'] ?></td>
-                                <td class="text-center"><input type="checkbox" name="" value="" /></td>
+                                <th>file name</th>
+                                <th colspan="2">description</th>
                             </tr>
 
-                        <?php } ?>
-                    </table>
-                </div>
+                            <?php
+                            $bannerQuery = mysql_query("SELECT * FROM " . TBL_BANNER);
 
-                <?php
-                echo $Pagination->showPagination();
-                ?>
-            </div>
+
+                            $count = mysql_fetch_array(mysql_query("SELECT COUNT(*) as total FROM " . TBL_BANNER));
+                            $bannerSQL = 'SELECT * FROM ' . TBL_BANNER;
+                            $Pagination = new Pagination();
+                            $Pagination->limit = 30;
+                            $Pagination->pageParam = 'page';
+                            $Pagination->execute($count['total']);
+                            $bannerSQL .= $Pagination->getLimitStr();
+
+
+                            $bannerQuery = mysql_query($bannerSQL);
+
+                            while ($banner = mysql_fetch_assoc($bannerQuery)) {
+                                ?>
+                                <tr>
+                                    <td><?php echo $banner['file_name'] ?></td>
+                                    <td><?php echo $banner['description'] ?></td>
+                                    <td class="text-center"><input type="checkbox" name="id" value="<?php echo $banner['id']; ?>" /></td>
+                                </tr>
+
+                            <?php } ?>
+                        </table>
+                    </div>
+
+                    <?php
+                    echo $Pagination->showPagination();
+                    ?>
+                </div>
+            </form>
         </div>
         <!--table lay out div end-->
     </body>
