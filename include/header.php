@@ -9,7 +9,7 @@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <ul class="headlogin text-center">
-                    <li><a href="#">ADMINISTRATOR</a></li>
+                    <li><a href="#"><?php echo $_SESSION['first_name']." ".$_SESSION['last_name'] ?></a></li>
                     <li>|</li>
                     <li><a href="<?php echo WEBSITE_URL ?>logout.php">Sign-out <i class="fa fa-sign-out"></i></a></li>
                 </ul>
