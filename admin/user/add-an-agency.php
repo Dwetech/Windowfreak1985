@@ -6,6 +6,8 @@
  * Time: 1:41 AM
  */
 include '../../core.php';
+$session->loginRequired('admin');
+
 
 $form = new Form();
 ?>
