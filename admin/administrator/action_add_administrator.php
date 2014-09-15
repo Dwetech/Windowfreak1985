@@ -1,9 +1,10 @@
 <?php
 
-/*
-  Created on : Sep 14, 2014, 2:23:17 PM
-  Author        : me@rafi.pro
-  Name         : Mohammad Faozul Azim Rafi
+/**
+ * Created by N0B0DY.
+ * User: me@suvo.me
+ * Date: 9/15/14
+ * Time: 1:41 AM
  */
 
 include '../../core.php';

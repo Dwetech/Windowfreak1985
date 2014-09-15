@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by N0B0DY.
+ * User: me@suvo.me
+ * Date: 9/15/14
+ * Time: 1:41 AM
+ */
 include '../core.php';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">

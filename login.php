@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by N0B0DY.
+ * User: me@suvo.me
+ * Date: 9/15/14
+ * Time: 1:41 AM
+ */
 require('core.php');
 
 $banner = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_BANNER . ' ORDER BY RAND() LIMIT 1'));

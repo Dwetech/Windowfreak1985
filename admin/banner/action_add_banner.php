@@ -1,8 +1,9 @@
 <?php
 /**
- * User: aajahid
- * Date: 9/13/14
- * Time: 6:50 PM
+ * Created by N0B0DY.
+ * User: me@suvo.me
+ * Date: 9/15/14
+ * Time: 1:41 AM
  */
 require('../../core.php');
 $session->loginRequired('admin',false);

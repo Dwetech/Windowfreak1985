@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by N0B0DY.
+ * User: me@suvo.me
+ * Date: 9/15/14
+ * Time: 1:41 AM
+ */
 include 'core.php';
 $session->loginRequired('user');
 $Form = new Form();
@@ -51,7 +57,7 @@ $starter = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_STARTER . ' ORDE
 <div class="container">
     <div class="topmargin">
         <div class="summary">
-            <a href=""><img src="img/refeces.jpg" alt="r1" class="img-responsive pull-left"
+            <a href=""><img src="img/refeces.jpg" alt="r1" class="pull-left"
                             style="border-radius:5px 0px 0px 5px; border-right:1px solid #d2d2d2;"/></a>
 
             <p class="tabletext pull-left" style="padding:10px 20px; width:81%;text-align:justify">
