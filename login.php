@@ -6,6 +6,7 @@
  * Time: 1:41 AM
  */
 require('core.php');
+$Form = new Form();
 
 $banner = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_BANNER . ' ORDER BY RAND() LIMIT 1'));
 ?>
@@ -41,7 +42,7 @@ $banner = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_BANNER . ' ORDER 
                             <li><input type="password" name="password" value="" placeholder="password" class="passtext" />
                             <a href="forgot_password.php" class="keep">forgot your password?</a>
                             </li>
-                            <li><input type="submit" value="Login" name="Login" class="loginbtn" /></li>
+                            <li><input type="submit" value="Login" name="submit" class="loginbtn" /></li>
                         </ul>
                         <div class="c"></div>
                         <ul class="keep-forgot">
@@ -59,6 +60,9 @@ $banner = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_BANNER . ' ORDER 
         <!--header div end-->
 
         <div class="container" style="margin-top:30px;">
+
+            <?php echo $Form->error('error','alert alert-danger') ?>
+
             <div class="row banner" >
                 <img src="<?php echo WEBSITE_URL.'upload/'.$banner['file_name']; ?>"  class="img-responsive" />
             </div>
