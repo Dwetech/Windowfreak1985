@@ -14,7 +14,7 @@ class Email
     public  $toName       = false;                  // Name of the reciver
 
     private $from;
-    public  $fromEmail    = 'ridwanul.hafiz@gmail.com'; // Email address where email will sent from.
+    public  $fromEmail    = 'ami@ami.com'; // Email address where email will sent from.
     public  $fromName     = 'Life Department';            // Sender Name
 
 

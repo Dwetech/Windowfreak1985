@@ -41,15 +41,16 @@ $banner = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_BANNER . ' ORDER 
 
         <div class="container" style="margin-top:50px;">
             <?php if($Form->error('success','')){
-                echo $Form->error('success','alert alert-success');
+                echo $Form->error('success','alert alert-success text-center');
             } else { ?>
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 col-md-offset-4 text-center visittext">
                     <h4>Forgot Password</h4>
 
-                    <form action="action_forgot_password.php">
+                    <?php echo $Form->error('notFound','alert alert-danger'); ?>
+                    <form action="action_forgot_password.php" method="post">
                         <?php echo $Form->error('email','alert alert-danger') ?>
                         <input name="email" style="width: 90%;margin: 5px 5%;padding: 7px;text-align: center" type="email" placeholder="Email Address"/>
-                        <input name="submit" style="width: 90%;margin: 0 5%;padding: 7px;background: #1c8c7e;color: #ffffff" type="submit" value="Send Mail"/>
+                        <button name="submit" style="width: 90%;margin: 0 5%;padding: 7px;background: #1c8c7e;color: #ffffff" type="submit">Send Mail</button>
                     </form>
 
                 </div>
