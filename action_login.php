@@ -27,12 +27,18 @@ if( !isset( $_POST['submit'] )) {
         $password = cleanData($_POST['password']);
         $remember_me = isset( $_POST['remember_me'] ) ? true : false;
 
+        $login = $session->login($email,$password,$remember_me);
+
         if($login) {
             if( $_SESSION['loginType'] == 'admin' ){
                 redirect(WEBSITE_URL.'admin/dashboard.php');
             } else {
                 redirect('view.php');
             }
+        } else{
+            $Form->setError('error','Database Error!');
+            $Form->return_msg_to('login.php');
         }
+
     }
 }
