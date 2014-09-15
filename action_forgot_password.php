@@ -23,18 +23,25 @@ if( !isset( $_POST['submit'] )) {
     } else {
 
         $email = cleanData($_POST['email']);
-        $user = mysql_fetch_assoc(mysql_query("SELECT * FROM ".TBL_USER." WHERE email=".$email));
+        $user = mysql_fetch_assoc(mysql_query('SELECT * FROM '.TBL_USER.' WHERE email="'.$email.'"'));
 
+        if(!$user){
+            $Form->setError('notFound','User Not Found.');
+            $Form->return_msg_to('forgot_password.php');
+        } else {
+            $Email->setEmailSubject('Forgot Password');
+            $Email->setMessage('Your password is '.$user['password']);
 
-        $Email->setEmailSubject('Forgot Password');
-        $Email->setMessage('Your password is '.$user['password']);
+            $Email->setEmailTo($email);
 
-        $Email->setEmailTo($email);
-        $Email->sendMail();
+            if($Email->sendMail()){
+                $Form->setError('success','Your password has been sent to your email. Please check your mails.');
+                $Form->return_msg_to('forgot_password.php');
+            } else {
 
-
-        $Form->setError('success','Your password has been sent to your email. Please check your mails.');
-        $Form->return_msg_to('forgot_password.php');
-
+                $Form->setError('notFound','User Not Found.');
+                $Form->return_msg_to('forgot_password.php');
+            }
+        }
     }
 }
