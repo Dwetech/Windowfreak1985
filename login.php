@@ -46,14 +46,23 @@ $banner = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_BANNER . ' ORDER 
 
                         <form action="action_login.php" method="post">
 
-                        <ul class="headlogin text-center headlogin1">
-                            <li><input type="email" name="email" value="<?php echo $Form->value('email') ?>" placeholder="email" class="emailtext" />
-                            <p class="keep"><input type="checkbox" name="remember_me" value="1" class="cbox"/>Keep me logged in</p>
+                        <ul class="headlogin text-center">
+                            <li>
+                                <input type="email" name="email" value="<?php echo $Form->value('email') ?>" placeholder="email" class="emailtext" />
                             </li>
-                            <li><input type="password" name="password" value="" placeholder="password" class="passtext" />
+                            <li>
+                                <input type="password" name="password" value="" placeholder="password" class="passtext" />
+                            </li>
+                            <li>
+                                <input type="submit" value="Login" name="submit" class="loginbtn" /></li>
+                            </li>
+                            <br>
+                            <li style="width: 170px;font-size: 12px">
+                                <input type="checkbox" name="remember_me" value="1" class="cbox"/>Keep me logged in
+                            </li>
+                            <li style="width: 150px">
                             <a href="forgot_password.php" class="keep">forgot your password?</a>
                             </li>
-                            <li><input type="submit" value="Login" name="submit" class="loginbtn" /></li>
                         </ul>
                         <div class="c"></div>
                         <ul class="keep-forgot">
