@@ -162,7 +162,7 @@ $starter = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_STARTER . ' ORDE
                                                                             <td><?php echo $leads['last_name'] ?></td>
                                                                             <td><?php echo $leads['phone_no'] ?></td>
                                                                             <td><?php echo $leads['call_time'] ?></td>
-                                                                            <td><?php echo $leads['lead_result'] == 'Y' ? 'YES - call them' : ''; ?></td>
+                                                                            <td><?php echo $leads['lead_result'] == "Y" ? "YES - call them" : "NO - don't call them" ; ?></td>
                                                                             <td style="text-align:left;"><?php echo $leads['create_date'] ?></td>
 
                                                                         </tr>
@@ -207,7 +207,7 @@ $starter = mysql_fetch_assoc(mysql_query('SELECT * FROM ' . TBL_STARTER . ' ORDE
                                                             <div class="summary" style="margin-top:20px;">
                                                                 <h3>Talk to a Specialist</h3>
                                                                 <hr style="height:1px; border-top:1px solid #d2d2d2; width:100%; margin:0px;"/>
-                                                                <p style="margin:10px;font-size:16px; color:#626262;"><i class="fa fa-phone"></i> 123 1234 1234</p>
+                                                                <p style="margin:10px;font-size:16px; color:#626262;"><i class="fa fa-phone"></i> 877-278-9750</p>
                                                             </div>
                                                             <div class="c"></div>
                                                         </div>
