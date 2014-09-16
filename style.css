@@ -147,7 +147,7 @@ body{}
   border: 1px solid #c8c8c8;
   height: 33px;
   left: 350px;
-  padding: 10px;
+  padding: 0 10px;
   position: absolute;
   width: 500px;
   top:59px;
@@ -158,13 +158,13 @@ body{}
   float: left;
   width: 800px;
   height: 33px;
-  padding:10px;
+  padding: 0 10px;
 }
 #reg_two input[type="text"] {
   border: 1px solid #c8c8c8;
   display: block;
   height: 33px;
-  padding: 10px;
+  padding: 0 10px;
   position: absolute;
   width: 200px;
   top: -33px;
