@@ -66,8 +66,8 @@ $Form = new Form();
                                 <th colspan="2">receive ‘yes’ emails?</th>
                             </tr>‌
                             <?php
-                            $user_count = mysql_fetch_array(mysql_query("SELECT COUNT(*) as total FROM " . TBL_USER . " WHERE type='admin' AND id!='" . $_SESSION['user_id'] . "'"));
-                            $user_sql = "SELECT u.* FROM " . TBL_USER . " u WHERE u.type='admin' AND id!='" . $_SESSION['user_id'] . "' ORDER BY u.id DESC";
+                            $user_count = mysql_fetch_array(mysql_query("SELECT COUNT(*) as total FROM " . TBL_USER . " WHERE type='admin'"));
+                            $user_sql = "SELECT u.* FROM " . TBL_USER . " u WHERE u.type='admin' ORDER BY u.id DESC";
 
                             $userPagination = new Pagination();
 
