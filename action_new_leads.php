@@ -26,10 +26,10 @@ if( !isset( $_POST['submit'] )) {
 
     if($_POST['lead_result'] == 'Y'){
         if( !isset( $_POST['call_time'] ) || empty($_POST['call_time']) ) {
-            $Form->setError('leadsError','Please select call time and give us your number.');
+            $Form->setError('leadsError','Please select call time and enter a phone number');
         }
         if( !isset( $_POST['phone_no'] ) || empty($_POST['phone_no']) ) {
-            $Form->setError('leadsError','Please select call time and give us your number.');
+            $Form->setError('leadsError','Please select call time and enter a phone number');
         }
     }
 
