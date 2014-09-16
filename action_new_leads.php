@@ -64,6 +64,8 @@ if( !isset( $_POST['submit'] )) {
             if($lead_result == 'Y'){
 
                 $Email->setEmailSubject('A new lead has been submitted.');
+                $mesage = "";
+
                 $Email->setMessage('');
 
                 $sentMailQuery = mysql_query("SELECT * FROM user WHERE type='admin' AND receive_email ='Y'");
