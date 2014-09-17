@@ -70,8 +70,8 @@ if (!isset($_POST['submit'])) {
                 $leadData = mysql_fetch_object(mysql_query("SELECT agency.agency_name, leads.first_name, leads.last_name, leads.phone_no, leads.call_time, leads.notes FROM leads LEFT JOIN user ON user.id = leads.user_id LEFT JOIN agency ON agency.id = user.agency_id WHERE leads.id = $leadAdd"));
                 
                 $Email->setEmailSubject('A new lead has been submitted.');
-                $Email->setMessage("A new lead has been submitted for agency <b>$leadData->agency_name</b> by <b>$leadData->first_name $leadData->last_name</b> with following info:<br/><br/>"
-                        . "<b>Lead         :</b> $leadData->first_name $leadData->last_name <br/>"
+                $Email->setMessage("A new lead has been submitted for agency <b>$leadData->agency_name</b> by <b style='color: #9B0202' >$leadData->first_name $leadData->last_name</b> with following info:<br/><br/>"
+                        . "<b style='color: #9B0202'>Lead         :</b> <span style='color: #9B0202' > $leadData->first_name $leadData->last_name </span> <br/>"
                         . "<b>Phone       :</b> $leadData->phone_no <br/>"
                         . "<b>Time to Call:</b> $leadData->call_time <br/>"
                         . "<b>Note         :</b> $leadData->notes. ");
