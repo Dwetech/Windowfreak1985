@@ -71,6 +71,7 @@ if (!isset($_POST['submit'])) {
                 
                 $Email->setEmailSubject('A new lead has been submitted.');
                 $Email->setMessage("A new lead has been submitted for agency <b>$leadData->agency_name</b> by <b>$leadData->first_name $leadData->last_name</b> with following info:<br/><br/>"
+                        . "<b>Lead         :</b> $leadData->first_name $leadData->last_name <br/>"
                         . "<b>Phone       :</b> $leadData->phone_no <br/>"
                         . "<b>Time to Call:</b> $leadData->call_time <br/>"
                         . "<b>Note         :</b> $leadData->notes. ");
